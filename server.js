@@ -89,14 +89,15 @@ app.get("/onTheMenu", (req, res) => {
   res.status(200).render("onTheMenu", data.recipe);
 });
 //-----------------------------------------------------------------------
-const productModel = require("./static/productList");
+// const productModel = require("./static/productList");
 
-app.get("/product/list", (req, res) => {
-  res.render("productList", {
-    title: "Product Listing Page",
-    products: productModel,
-  });
-});
+// app.get("/product/list", (req, res) => {
+//   res.render("productList", {
+//     title: "Product Listing Page",
+//     products: productModel,
+//   });
+// });
+
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
