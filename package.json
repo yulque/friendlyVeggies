@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/yulque/friendlyVeggies#readme",
   "dependencies": {
+    "body-parser": "*",
     "express": "*",
-	"body-parser":"*"
+    "express-handlebars": "^5.1.0"
   }
 }
