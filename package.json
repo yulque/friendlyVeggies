@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/yulque/friendlyVeggies/issues"
   },
-  "homepage": "https://github.com/yulque/friendlyVeggies#readme"
+  "homepage": "https://github.com/yulque/friendlyVeggies#readme",
+  "dependencies": {
+    "express": "*",
+	"body-parser":"*"
+  }
 }
