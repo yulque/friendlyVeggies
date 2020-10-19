@@ -4,25 +4,26 @@
         {{!-- first name --}}
         <div class="inputBox">
             <label for="first-name">First Name</label><br />
-            <input type="text" name="first-name" id="first-name" autocomplete="given-name" placeholder="John"
-                title="Your first name here please" /><br />
+            <input type="text" name="firstName" id="first-name" autocomplete="given-name" placeholder="John"
+                value="{{firstName}}" title=" Your first name here please" /><br />
         </div>
         <!--last name-->
         <div class="inputBox">
             <label for="last-name">Last Name</label><br />
-            <input type="text" name="last name" id="last-name" autocomplete="family-name" placeholder="Doe" /><br />
+            <input type="text" name="lastName" id="last-name" autocomplete="family-name" placeholder="Doe"
+                value="{{lastName}}" /><br />
         </div>
         <!-- email address-->
         <div class="inputBox">
             <label for="email">Email address</label><br />
             <input type="email" name="email" id="email" autocomplete="email" placeholder="email@email.com" size="20"
-                value="{{userName}}" />
+                value="{{email}}" />
             <div class="loginAlert"><span> {{msgId}} </span></div>
         </div>
         {{!-- password --}}
         <div class="inputBox">
             <label for="newPassword">Password</label><br />
-            <input type="new-password" name="password" id="password" value="{{userPassword}}" />
+            <input type="new-password" name="password" id="password" />
             <div class="loginAlert"><span> {{msgPwd}} </span></div>
         </div>
         <input type="submit" value="Sign Up" />

@@ -51,39 +51,36 @@ app.get("/signUp", (req, res) => {
 });
 //signUp validation-------------------------------------------------------------------
 app.post("/signUp", (req, res) => {
-  let id = req.body.email;
-  let pw = req.body.password;
+  const { firstName, lastName, email, password } = req.body;
   let result = {};
+  result.firstName = firstName;
+  result.lastName = lastName;
+  result.email = email;
+  result.password = password;
   //check email
-  if (id == "") {
+  if (!email) {
     result.msgId = "Enter an email address";
-    result.userName = id;
-  } else if (!id.match(/..*@..*\..*/)) {
+  } else if (!email.match(/..*@..*\..*/)) {
     //must have @ and . and at least one character between them.
     result.msgId = "Please enter a valid email";
-    result.userName = id;
-  } else if (id.match(/(?=.*["%$+])/)) {
+  } else if (email.match(/(?=.*["%$+])/)) {
     result.msgId = 'Email must not contain "%$+';
-    result.userName = id;
-  } else result.userName = id;
+  }
 
   //check password
-  if (pw == "") {
+  if (!password) {
     console.log("password phase");
     result.msgPwd = "Enter your password";
-    result.userPassword = pw;
-  } else if (!pw.match(/.{6,12}/)) {
+  } else if (!password.match(/.{6,12}/)) {
     result.msgPwd = "Password must be 6-12 characters";
-    result.userPassword = pw;
   } else if (
-    !pw.match(
+    !password.match(
       /^(?=.*[0-9])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+-=|]).{6,12}$/
     )
   ) {
     result.msgPwd =
       "Password must contain 1 digit, upper case, special character";
-    result.userPassword = pw;
-  } else result.userPassword = pw;
+  }
   console.log(result);
   res.status(200).render("signUp", result);
 });
@@ -92,7 +89,14 @@ app.get("/onTheMenu", (req, res) => {
   res.status(200).render("onTheMenu", data.recipe);
 });
 //-----------------------------------------------------------------------
+const productModel = require("./static/productList");
 
+app.get("/product/list", (req, res) => {
+  res.render("productList", {
+    title: "Product Listing Page",
+    products: productModel,
+  });
+});
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
