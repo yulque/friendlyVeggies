@@ -1,0 +1,21 @@
+<div class="onTheMenu" id="onTheMenu">
+    <div class="subTitle">
+        <h6>Inspired by the freshest veggies, our chefs create 4 different unique recipes each and every
+            week.</h6>
+    </div>
+    <div class="title">
+        <h4>Classic Vegitarian Meals</h4>
+    </div>
+    <div id="container-menu" class="container-menu">
+        {{#each food}}
+        <div class="onTheMenuSmall">
+            <img src="images/onTheMenu{{id}}.jpg" alt="meal" />
+            <div class="onTheMenuDesc">
+                <h4>{{title}}</h4>
+                <h6>{{ingr}}</h6>
+                <p>{{detail}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

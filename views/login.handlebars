@@ -1,0 +1,18 @@
+<div class="loginContainer">
+    <div class="title">Log in</div>
+    <form id="login" name="login" action="/login" method="POST">
+        <div class="inputBox">
+            <label for="userId">Id</label><br />
+            <input type="text" name="userId" id="userId" autocomplete="username" placeholder="example@email.com"
+                value="{{userName}}" title="Your username" />
+            <div class="loginAlert"><span> {{msgId}} </span></div>
+        </div>
+        <div class="inputBox">
+            <label for="userPassword">Password</label><br />
+            <input type="password" name="userPassword" id="userPassword" autocomplete="current-password"
+                value="{{userPassword}}" title="Your password" /><br />
+            <div class="loginAlert"><span> {{msgPwd}} </span></div>
+        </div>
+        <input type="submit" value="Login" />
+    </form>
+</div>

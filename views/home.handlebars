@@ -1,0 +1,49 @@
+<!-- contents section -->
+
+<div class="contents" id="contents">
+    <div class="title">
+        <h4>How it works</h4>
+    </div>
+    <div class="contents-container">
+        <div class="contents-small" id="contents1"><img src="images/contents1.jpg" />
+            <div>
+                <h4>We create our own original vegitarian recipe</h4>
+                <p>All unique recipes are based on vegitable.</p>
+            </div>
+        </div>
+        <div class="contents-small" id="contents1"><img src="images/contents2.jpg" />
+            <div>
+                <h4>You choose your preference</h4>
+                <p>Vegan, Vegitarian, pesco menus are here for you.</p>
+            </div>
+        </div>
+        <div class="contents-small" id="contents1"><img src="images/contents3.jpg" />
+            <div>
+                <h4>We deliver on the day you want weekly</h4>
+                <p>Choose a day and we will be there.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--top meals -->
+<div class="topMeals" id="topMeals">
+    <div class="title">
+        <h4>Our Top Meals</h4>
+    </div>
+    <div id="container-topmeal" class="container-topmeal">
+        {{#each food}}
+        {{#if topMeal}}
+        <div class="topMealSmall">
+            <img src="images/topmeal{{id}}.jpg" alt="meal" />
+            <div class="topMealDesc">
+                <h4>{{title}}</h4>
+                <h6>{{ingr}}</h6>
+                <p>{{detail}}</p>
+                <button>{{price}}</button>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,275 @@
+/* Green Treeline: #478559
+Purple baseline: #161748
+Pink highlight: #f95d9b */
+@import url("https://fonts.googleapis.com/css2?family=Kufam:ital@1&family=Rubik&display=swap");
+
+/* layout */
+body {
+  color: #181818;
+  background-color: #fff;
+  font-family: "Kufam", cursive;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+/*grid */
+.item1 {
+  grid-row: 1/2;
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+.itemHero {
+  grid-row: 2/3;
+}
+
+.item3 {
+  grid-row: 3/4;
+}
+.item4 {
+  grid-row: 4/5;
+}
+.grid-container {
+  display: grid;
+  grid-template-rows: 70px auto auto auto;
+  grid-gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* header */
+.header {
+  height: 70px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+.header a {
+  text-decoration: none;
+}
+.logo {
+  display: block;
+  float: left;
+}
+.logo img {
+  width: 70px;
+  height: 70px;
+}
+.store-name {
+  margin: auto;
+  margin-left: 5px;
+  display: block;
+  font-family: "Kufam", cursive;
+  font-size: 20px;
+  width: 60%;
+  color: #f95d9b;
+}
+.store-name a {
+  color: #f95d9b;
+}
+
+/*- navigation bar -*/
+.navi-bar {
+  width: 400px;
+  height: 40px;
+  right: 10%;
+  margin: auto;
+}
+.btn {
+  padding: 1px 10px;
+  width: 80px;
+  height: 40px;
+  margin: 1px;
+  font-size: 15px;
+  vertical-align: middle;
+  display: inline-block;
+  border: solid 1px #478559;
+  border-radius: 20px;
+  font-family: "Kufam", cursive;
+  color: #478559;
+}
+#onTheMenu-btn {
+  width: 10rem;
+  border: solid 1px #f95d9b;
+  color: #f95d9b;
+}
+.btn:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+/* <!-- hero banner --> */
+.hero {
+  width: 100%;
+  text-align: center;
+}
+.hero img {
+  max-width: 800px;
+  display: inline;
+}
+/* main page  */
+.topMeals {
+  margin: auto;
+  padding: 0 15px;
+  background-color: #ebecf0;
+}
+.container-topmeal {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 240px);
+  grid-column-gap: 0.5em;
+  grid-row-gap: 0.5em;
+  font-size: 10;
+  margin: auto;
+  justify-content: center;
+  align-items: top;
+}
+.container-topmeal img {
+  width: 240px;
+  height: 170px;
+}
+.topMealDesc {
+  padding: 10px;
+  font: "Rubik", sans-serif;
+  font-size: 18px;
+}
+.topMealDesc h6 {
+  color: grey;
+}
+.topMealDesc button {
+  margin-top: 0.5rem;
+}
+.title {
+  font-family: "Kufam", cursive;
+  text-align: center;
+  font-size: 22px;
+  vertical-align: middle;
+  color: #478559;
+  line-height: 5rem;
+}
+.subTitle {
+  font-family: "Kufam", cursive;
+  text-align: center;
+  color: grey;
+  line-height: 4rem;
+}
+.contents {
+  margin: 2%;
+}
+.contents-container {
+  display: grid;
+  grid-template-columns: repeat(3, 18rem);
+  font-size: 13px;
+  text-align: center;
+  justify-content: center;
+  align-items: top;
+}
+.contents-container img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  display: inline-block;
+}
+.contents-small {
+  border: 2px solid #478559;
+  margin: 1rem;
+  padding: 1rem;
+}
+.contents-small h4 {
+  margin: 1rem;
+}
+.container-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 400px);
+  grid-template-rows: auto;
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
+  font-size: 15px;
+  width: 850px;
+  margin: auto;
+}
+.container-menu img {
+  width: 400px;
+  height: 300px;
+}
+/* onTheMenu page */
+.onTheMenuDesc {
+  padding: 10px;
+  font: "Rubik", sans-serif;
+  font-size: 18px;
+}
+.onTheMenuDesc h5 {
+  font-size: 20px;
+  color: #478559;
+}
+.onTheMenuDesc h6 {
+  font-size: 18px;
+  color: grey;
+}
+
+/* loginPage + signUpPage */
+.loginContainer {
+  font-size: 18px;
+  text-align: center;
+  color: #478559;
+  border: solid 1px#478559;
+  width: 20rem;
+  margin: auto;
+}
+
+.loginContainer input {
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
+  font-size: 18px;
+}
+.inputBox {
+  width: 13.5rem;
+  margin: auto;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.loginAlert {
+  margin: 0;
+  color: red;
+  font-size: 16px;
+}
+.loginContainer input[type="submit"] {
+  font-size: 20px;
+  background-color: #478559;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+/* footer */
+.footer {
+  height: 100px;
+  background-color: #478559;
+}
+.footer-contents {
+  position: relative;
+  text-align: center;
+  font-size: 15px;
+  color: white;
+  width: 30rem;
+  margin: auto;
+  line-height: 50px;
+}
+.footer-contact {
+  line-height: 50px;
+}
+.footer-contents a {
+  color: white;
+  text-decoration: underline;
+}
