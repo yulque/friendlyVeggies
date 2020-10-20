@@ -11,6 +11,7 @@ body {
   font-family: "Rubik", sans-serif;
   font-weight: 400;
   font-size: 1.4rem;
+  margin: 0;
 }
 h3,
 h4,
@@ -29,7 +30,6 @@ p {
 .itemHero {
   grid-row: 2/3;
 }
-
 .item3 {
   grid-row: 3/4;
 }
@@ -60,6 +60,7 @@ p {
 .logo {
   display: block;
   float: left;
+  margin: 0.5rem;
 }
 .logo img {
   width: 70px;
@@ -82,7 +83,7 @@ p {
 .navi-bar {
   width: 400px;
   height: 40px;
-  right: 10%;
+  right: 5%;
   margin: auto;
 }
 .btn {
@@ -110,10 +111,10 @@ p {
 /* <!-- hero banner --> */
 .hero {
   width: 100%;
-  text-align: center;
 }
 .hero img {
   max-width: 800px;
+  height: 300px;
   display: inline;
 }
 /* main page  */
@@ -252,6 +253,12 @@ p {
   display: inline-block;
   margin-bottom: 1rem;
 }
+.welcomeContainer {
+  width: 30rem;
+  margin: auto;
+  text-align: center;
+  color: #f95d9b;
+}
 /* footer */
 .footer {
   height: 100px;
@@ -272,4 +279,89 @@ p {
 .footer-contents a {
   color: white;
   text-decoration: underline;
+}
+
+/* --------------------------------------------------*/
+/* mobile resize ------------------------------------*/
+
+@media (max-width: 768px) {
+  .grid-container {
+    display: grid;
+    grid-template-rows: 120px auto auto auto;
+    grid-gap: 10px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .header {
+    border: solid black 1px;
+    height: 120px;
+    display: block;
+  }
+  .logo {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .store-name {
+    line-height: 70px;
+    vertical-align: middle;
+    font-size: 15px;
+    margin-top: 0;
+    margin-left: 10px;
+  }
+  /*- navigation bar -*/
+  .navi-bar {
+    width: 100%;
+    border: solid black 1px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+  #onTheMenu-btn {
+    width: 8rem;
+  }
+  /* <!-- hero banner --> */
+  .itemHero {
+    width: 100%;
+  }
+  .hero {
+    width: 300px;
+    height: 300px;
+    background-image: url("./images/hero_m.jpg");
+    background-size: 300px 300px;
+    margin: auto;
+  }
+  .hero img {
+    display: none;
+  }
+  .contents-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 18rem);
+    font-size: 13px;
+    text-align: center;
+    justify-content: center;
+    align-items: top;
+  }
+  .container-topmeal {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 240px);
+    grid-column-gap: 0.5em;
+    grid-row-gap: 0.5em;
+    font-size: 10;
+    margin: auto;
+    justify-content: center;
+    align-items: top;
+  }
+  /* on the menu */
+  .container-menu {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 400px);
+    width: 100%;
+  }
+  .subTitle h6 {
+    line-height: normal;
+    margin: 1rem;
+  }
 }

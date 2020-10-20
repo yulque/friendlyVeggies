@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-var exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 const data = require("./static/data.js");
 const HTTP_PORT = process.env.PORT || 8080;
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Call this function after the http server starts listening for requests.
@@ -53,10 +54,12 @@ app.get("/signUp", (req, res) => {
 app.post("/signUp", (req, res) => {
   const { firstName, lastName, email, password } = req.body;
   let result = {};
+  let validation = false;
   result.firstName = firstName;
   result.lastName = lastName;
   result.email = email;
   result.password = password;
+
   //check email
   if (!email) {
     result.msgId = "Enter an email address";
@@ -65,11 +68,10 @@ app.post("/signUp", (req, res) => {
     result.msgId = "Please enter a valid email";
   } else if (email.match(/(?=.*["%$+])/)) {
     result.msgId = 'Email must not contain "%$+';
-  }
+  } else validation = true;
 
   //check password
   if (!password) {
-    console.log("password phase");
     result.msgPwd = "Enter your password";
   } else if (!password.match(/.{6,12}/)) {
     result.msgPwd = "Password must be 6-12 characters";
@@ -80,14 +82,43 @@ app.post("/signUp", (req, res) => {
   ) {
     result.msgPwd =
       "Password must contain 1 digit, upper case, special character";
+  } else validation = true;
+
+  if (validation) {
+    res.status(200).render("welcome", result);
+    // for mailing ----------------------------------------------------
+    let myMail = "yuriyoonkim@gmail.com";
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: myMail,
+        pass: "db0024fl",
+      },
+    });
+
+    let mailOptions = {
+      from: myMail,
+      to: email,
+      subject: "Welcome to Friendly Veggies!",
+      text: "Please enjoy our eco-friendly and tasty meals",
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  } else {
+    res.status(200).render("signUp", result);
   }
-  console.log(result);
-  res.status(200).render("signUp", result);
 });
 // on the menu page -----------------------------------------------------
 app.get("/onTheMenu", (req, res) => {
   res.status(200).render("onTheMenu", data.recipe);
 });
+
 //-----------------------------------------------------------------------
 // const productModel = require("./static/productList");
 
