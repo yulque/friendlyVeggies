@@ -81,7 +81,7 @@ p {
 
 /*- navigation bar -*/
 .navi-bar {
-  width: 400px;
+  width: 500px;
   height: 40px;
   right: 5%;
   margin: auto;
@@ -111,6 +111,7 @@ p {
 /* <!-- hero banner --> */
 .hero {
   width: 100%;
+  text-align: center;
 }
 .hero img {
   max-width: 800px;
@@ -285,6 +286,9 @@ p {
 /* mobile resize ------------------------------------*/
 
 @media (max-width: 768px) {
+  body {
+    width: 100%;
+  }
   .grid-container {
     display: grid;
     grid-template-rows: 120px auto auto auto;
@@ -294,7 +298,6 @@ p {
     border: 0;
   }
   .header {
-    border: solid black 1px;
     height: 120px;
     display: block;
   }
@@ -305,18 +308,22 @@ p {
   .store-name {
     line-height: 70px;
     vertical-align: middle;
-    font-size: 15px;
+    font-size: 20px;
     margin-top: 0;
     margin-left: 10px;
+    width: 100%;
   }
   /*- navigation bar -*/
   .navi-bar {
     width: 100%;
-    border: solid black 1px;
     height: 40px;
     display: flex;
     justify-content: center;
     margin: 0;
+  }
+  .btn {
+    margin: 0 0.3rem;
+    font-weight: bold;
   }
   #onTheMenu-btn {
     width: 8rem;
@@ -363,5 +370,16 @@ p {
   .subTitle h6 {
     line-height: normal;
     margin: 1rem;
+  }
+  .footer {
+    height: 3.6rem;
+  }
+  .footer-contents {
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+    color: white;
+    width: 100%;
+    line-height: 1.2rem;
   }
 }
