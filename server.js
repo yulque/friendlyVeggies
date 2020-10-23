@@ -7,6 +7,10 @@ const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/keys.env" });
+
 // Call this function after the http server starts listening for requests.
 function onHttpStart() {
   console.log("Express http server listening on port: " + HTTP_PORT);
@@ -85,6 +89,28 @@ app.post("/signUp", (req, res) => {
   } else validation = true;
 
   if (validation) {
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+
+    const msg = {
+      to: "yuriyoonkim@gmail.com",
+      from: "yryoon@myseneca.ca",
+      subject: "contact us form submission",
+      html: `Welcome ${firstName} ${lastName} !<br>
+            `,
+    };
+    // Asyncronously sends the email
+
+    sgMail
+      .send(msg)
+      .then(() => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        console.log(`Error ${err}`);
+
+        res.render("signUp");
+      });
     res.status(200).render("welcome", result);
     // for mailing ----------------------------------------------------
     let myMail = "yuriyoonkim@gmail.com";
