@@ -97,12 +97,14 @@ p {
   border: solid 1px #478559;
   border-radius: 20px;
   font-family: "Kufam", cursive;
-  color: #478559;
+  background-color: #478559;
+  color: white;
 }
 #onTheMenu-btn {
   width: 10rem;
   border: solid 1px #f95d9b;
-  color: #f95d9b;
+  background-color: #f95d9b;
+  color: white;
 }
 .btn:hover {
   text-decoration: underline;
