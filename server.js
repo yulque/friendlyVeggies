@@ -4,7 +4,6 @@ const exphbs = require("express-handlebars");
 const data = require("./static/data.js");
 const HTTP_PORT = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
