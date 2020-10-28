@@ -41,18 +41,23 @@ app.post("/login", (req, res) => {
   if (userId == "") {
     result.msgId = "Enter your id";
     result.userName = userId;
-  } else result.userName = userId;
+    validation = false;
+  } else {
+    result.userName = userId;
+    validation = true;
+  }
   //check password
   if (userPassword == "") {
     result.msgPwd = "Enter your password";
     result.userPassword = userPassword;
+    validation = false;
   } else {
     result.userPassword = userPassword;
-    validation = true;
+    if (validation) validation = true;
   }
   //validation check
   if (validation) {
-    res.render("home");
+    res.redirect("/");
   } else res.status(200).render("login", result);
 });
 // welcome dashboard ---------------------------------------------------
@@ -67,7 +72,10 @@ app.get("/signUp", (req, res) => {
 app.post("/signUp", (req, res) => {
   const { firstName, lastName, email, password } = req.body;
   let result = {};
-  let validation = false;
+  let validFN,
+    validLN,
+    validE,
+    validP = false;
   result.firstName = firstName;
   result.lastName = lastName;
   result.email = email;
@@ -75,26 +83,32 @@ app.post("/signUp", (req, res) => {
   //check first name
   if (!firstName) {
     result.msgFN = "Enter your first name";
-  }
+    validFN = false;
+  } else validFN = true;
   //check last name
   if (!lastName) {
     result.msgLN = "Enter your last name";
-  }
+    validLN = false;
+  } else validLN = true;
   //check email
   if (!email) {
     result.msgId = "Enter an email address";
+    validE = false;
   } else if (!email.match(/..*@..*\..*/)) {
     //must have @ and . and at least one character between them.
     result.msgId = "Please enter a valid email";
+    validE = false;
   } else if (email.match(/(?=.*["%$+])/)) {
     result.msgId = 'Email must not contain "%$+';
-  }
-
+    validE = false;
+  } else validE = true;
   //check password
   if (!password) {
     result.msgPwd = "Enter your password";
+    validP = false;
   } else if (!password.match(/.{6,12}/)) {
     result.msgPwd = "Password must be 6-12 characters";
+    validP = false;
   } else if (
     !password.match(
       /^(?=.*[0-9])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+-=|]).{6,12}$/
@@ -102,10 +116,11 @@ app.post("/signUp", (req, res) => {
   ) {
     result.msgPwd =
       "Password must contain 1 digit, upper case, special character";
-  } else validation = true;
+    validP = false;
+  } else validP = true;
 
   //if valid information, send message
-  if (validation) {
+  if (validFN && validLN && validE && validP) {
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
