@@ -256,11 +256,20 @@ p {
   display: inline-block;
   margin-bottom: 1rem;
 }
+/*Welcome Page*/
 .welcomeContainer {
-  width: 30rem;
+  width: auto;
+  height: 28rem;
   margin: auto;
   text-align: center;
   color: #f95d9b;
+  background-image: url("./images/welcome.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.welcomeContainer h3 {
+  font-family: "Kufam", cursive;
+  padding: 2rem;
 }
 /* footer */
 .footer {
