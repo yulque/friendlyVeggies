@@ -117,10 +117,8 @@ app.post("/signUp", (req, res) => {
       "Password must contain 1 digit, upper case, special character";
     validP = false;
   } else validP = true;
-  console.log(validFN && validLN && validE && validP, result);
   //if valid information, send message
   if (validFN && validLN && validE && validP) {
-    console.log(validFN && validLN && validE && validP, result);
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
