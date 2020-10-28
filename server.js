@@ -55,6 +55,10 @@ app.post("/login", (req, res) => {
     res.render("home");
   } else res.status(200).render("login", result);
 });
+// welcome dashboard ---------------------------------------------------
+app.get("/welcome", (req, res) => {
+  res.status(200).render("welcome");
+});
 //signUp -----------------------------------------------------------------------------
 app.get("/signUp", (req, res) => {
   res.status(200).render("signUp");
@@ -130,10 +134,7 @@ app.post("/signUp", (req, res) => {
 app.get("/onTheMenu", (req, res) => {
   res.status(200).render("onTheMenu", data.recipe);
 });
-// welcome dashboard ---------------------------------------------------
-app.get("/welcome", (req, res) => {
-  res.status(200).render("welcome");
-});
+
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
