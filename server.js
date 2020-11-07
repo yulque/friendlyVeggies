@@ -28,6 +28,6 @@ app.use((req, res) => {
 
 //----------------------------------
 function onHttpStart() {
-  console.log("Express http server listening on port: " + HTTP_PORT);
+  console.log("Express http server listening on port : " + HTTP_PORT);
 }
 app.listen(HTTP_PORT, onHttpStart);
