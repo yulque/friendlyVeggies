@@ -4,6 +4,34 @@ const router = express.Router(); //to add additional urls like app
 const data = require("../static/data.js");
 router.use(express.static("static"));
 
+//  mongo DB
+var mongoose = require("mongoose");
+// connect to the mongoDB
+mongoose.connect(
+  "mongodb+srv://yulque:db0024fl@friendlyveggies.et19u.mongodb.net/web322db?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  }
+);
+//define our models - Name schema
+const Schema = mongoose.Schema;
+const NameSchema = new Schema({
+  email: {
+    type: String,
+    unique: true,
+  },
+  fName: String,
+  lName: String,
+  password: {
+    type: String,
+  },
+});
+// tell mongoose to register this schema as a model and connect it to
+// names collection (if not there, it will automatically create)
+var NameModel = mongoose.model("users", NameSchema);
+
 //index--------------------
 router.get("/", (req, res) => {
   res.status(200).render("general/home", data.recipe);
@@ -39,10 +67,6 @@ router.post("/login", (req, res) => {
   if (validation) {
     res.redirect("/");
   } else res.status(200).render("general/login", result);
-});
-// welcome dashboard ---------------------------------------------------
-router.get("/welcome", (req, res) => {
-  res.status(200).render("signUp/welcome");
 });
 //signUp -----------------------------------------------------------------------------
 router.get("/signUp", (req, res) => {
@@ -100,6 +124,23 @@ router.post("/signUp", (req, res) => {
   } else validP = true;
   //if valid information, send message
   if (validFN && validLN && validE && validP) {
+    console.log(email, firstName, lastName, password);
+    //make new name model
+    var newUser = new NameModel({
+      email: email,
+      fName: firstName,
+      lName: lastName,
+      password: password,
+    });
+    // save the user
+    newUser.save((err) => {
+      if (err) {
+        console.log(`error happens saving yuri user" ${err}`);
+      } else {
+        console.log("successfully saved to web322db!");
+      }
+    });
+    //send mail to welcome user
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 

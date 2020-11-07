@@ -15,9 +15,6 @@ app.engine("handlebars", exphbs());
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", "handlebars");
 
-//  static resources
-//app.use(express.static("static"));
-
 // load controllers
 const generalController = require("./controllers/general");
 const productController = require("./controllers/signUp");
@@ -28,6 +25,7 @@ app.use("/signUp", productController);
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
+
 //----------------------------------
 function onHttpStart() {
   console.log("Express http server listening on port: " + HTTP_PORT);
