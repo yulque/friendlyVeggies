@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("static"));
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
@@ -16,11 +17,11 @@ app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", "handlebars");
 
 // load controllers
+// app.get("/signUp", (req, res) => {
+//   res.status(200).render("general/signUp");
+// });
 const generalController = require("./controllers/general");
-const productController = require("./controllers/signUp");
-
 app.use("/", generalController);
-app.use("/signUp", productController);
 
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
