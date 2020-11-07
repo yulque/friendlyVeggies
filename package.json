@@ -23,6 +23,8 @@
     "dotenv": "^8.2.0",
     "express": "*",
     "express-handlebars": "^5.1.0",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.12",
     "nodemailer": "^6.4.14",
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
