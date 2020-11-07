@@ -1,7 +1,3 @@
-const express = require("express");
-const app = express();
-app.use(express.static("static"));
-
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
 const bcrypt = require("bcrypt");
@@ -32,7 +28,7 @@ const NameSchema = new Schema({
 var NameModel = mongoose.model("users", NameSchema);
 
 module.exports = {
-  doValidationSignUp: function (req, res) {
+  validateSignUp: function (req, res) {
     const { firstName, lastName, email } = req.body;
     let password = req.body.password;
     let result = {};
@@ -66,6 +62,7 @@ module.exports = {
       result.msgId = 'Email must not contain "%$+';
       validE = false;
     } else validE = true;
+
     //check password
     if (!password) {
       result.msgPwd = "Enter your password";
@@ -98,7 +95,7 @@ module.exports = {
       // save the user
       newUser.save((err) => {
         if (err) {
-          console.log(`error happens saving user. Code: ${err} ${err.code}`);
+          console.log(`error happens saving user. ${err}`);
           if (err.code == 11000) {
             result.msgId = "This email already exists";
             res.render("general/signUp", result);

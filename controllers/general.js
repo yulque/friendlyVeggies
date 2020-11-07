@@ -25,7 +25,7 @@ router.get("/signUp", (req, res) => {
   res.status(200).render("general/signUp");
 });
 // signUp validation
-router.post("/signUp", model_signUp.doValidationSignUp);
+router.post("/signUp", model_signUp.validateSignUp);
 
 // signUp -> Welcome dashboard
 router.get("/welcome", (req, res) => {
