@@ -66,6 +66,7 @@ module.exports = {
         fName: firstName,
         lName: lastName,
         password: password,
+        isClerk: false,
       });
       // save the user
       newUser.save((err) => {

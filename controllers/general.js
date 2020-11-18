@@ -4,7 +4,17 @@ const data = require("../static/data.js");
 const model_login = require("../models/login.js");
 const model_signUp = require("../models/signUp.js");
 router.use(express.static("static"));
-
+router.use("/dashboard", express.static("static"));
+function requireLogin(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+router.all("/dashboard/*", requireLogin, (req, res, next) => {
+  next();
+});
 // index
 router.get("/", (req, res) => {
   res.status(200).render("general/home", data.recipe);
@@ -15,7 +25,21 @@ router.get("/logIn", (req, res) => {
 });
 // login validation
 router.post("/login", model_login.validate_user);
+// loggedin dashboard for user
 
+router.get("/dashboard/user", (req, res) => {
+  res.status(200).render("general/dashboardUser");
+});
+// loggedin dashboard for data clerk
+router.get("/dashboard/dataClerk", (req, res) => {
+  res.status(200).render("general/dashboardDataClerk");
+});
+
+//logout
+router.get("/logOut", (req, res) => {
+  req.session.destroy();
+  res.redirect("/login");
+});
 // on the menu page
 router.get("/onTheMenu", (req, res) => {
   res.status(200).render("general/onTheMenu", data.recipe);

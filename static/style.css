@@ -277,6 +277,12 @@ p {
   font-family: "Kufam", cursive;
   padding: 2rem;
 }
+.loginDashboard {
+  width: auto;
+  margin: auto;
+  text-align: center;
+  color: #f95d9b;
+}
 /* footer */
 .footer {
   height: 100px;

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
     <title>Friendly Veggies</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <!--${pageContext.request.contextPath} -->
     <script type="text/javascript" src="script.js"></script>
     <link rel="shortcut icon" href="images/favicon.ico?v=2" type="image/x-icon" />
     <link rel="icon" href="images/favicon.ico?v=2" type="image/x-icon" />
@@ -25,10 +26,11 @@
                         <a href="/">Friendly Veggies</a>
                     </div>
                     <div class="navi-bar" id="navi-bar">
-                        <button>Hello {{user.fName}} </button>
+
                         <button class="btn" id="onTheMenu-btn">on the menu</button>
                         {{#if user}}
-                        <button class="btn" id="logout">log out</button>
+                        <button class="btn">Hello {{user.fName}} </button>
+                        <button class="btn" id="logOut">log out</button>
                         {{else}}
                         <button class="btn" id="signUp">sign up</button>
                         <button class="btn" id="logIn">log in</button>

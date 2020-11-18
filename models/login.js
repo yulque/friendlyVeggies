@@ -42,8 +42,11 @@ module.exports = {
                   console.log("password is matched");
                   //create a new session
                   req.session.user = found;
-
-                  res.redirect("/");
+                  if (found.isClerk) {
+                    res.redirect("/dashboard/dataClerk");
+                  } else {
+                    res.redirect("/dashboard/user");
+                  }
                 } else {
                   console.log("password is not matched");
                   result.msgPwd = "Password is incorrect";
