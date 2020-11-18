@@ -1,31 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
-const bcrypt = require("bcrypt");
-
-var mongoose = require("mongoose");
-// connect to the mongoDB
-mongoose.connect(process.env.MONGODB_KEY, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
-//define our models - Name schema
-const Schema = mongoose.Schema;
-const NameSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
-  },
-  fName: String,
-  lName: String,
-  password: {
-    type: String,
-  },
-});
-
-// tell mongoose to register this schema as a model and connect it to
-// names collection (if not there, it will automatically create)
-var NameModel = mongoose.model("users", NameSchema);
+const User = require("./dbModel.js");
 
 module.exports = {
   validateSignUp: function (req, res) {
@@ -82,11 +57,11 @@ module.exports = {
 
     //if valid information, save and send message
     if (validFN && validLN && validE && validP) {
-      let hash = bcrypt.hashSync(password, 10);
-      password = hash;
+      //let hash = bcrypt.hashSync(password, 10);
+      //password = hash;
       console.log(email, firstName, lastName, password);
       //make new name model
-      var newUser = new NameModel({
+      var newUser = new User({
         email: email,
         fName: firstName,
         lName: lastName,
@@ -102,6 +77,7 @@ module.exports = {
           }
         } else {
           console.log("successfully saved to web322db!");
+          console.log("hashed pw is : ", password);
           //send mail to welcome user
           const sgMail = require("@sendgrid/mail");
           sgMail.setApiKey(process.env.SEND_GRID_API_KEY);

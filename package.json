@@ -24,6 +24,7 @@
     "dotenv": "^8.2.0",
     "express": "*",
     "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.12",
     "nodemailer": "^6.4.14",

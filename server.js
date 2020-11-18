@@ -3,6 +3,7 @@ const app = express();
 const exphbs = require("express-handlebars");
 const HTTP_PORT = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,10 +17,22 @@ app.engine("handlebars", exphbs());
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", "handlebars");
 
+// set up express-session
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use((req, res, next) => {
+  //res.locals.user is a global handlebars variable.
+  res.locals.user = req.session.user;
+  next();
+});
 // load controllers
-// app.get("/signUp", (req, res) => {
-//   res.status(200).render("general/signUp");
-// });
+
 const generalController = require("./controllers/general");
 app.use("/", generalController);
 
