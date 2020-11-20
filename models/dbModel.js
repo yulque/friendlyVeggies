@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 // connect to the mongoDB
-mongoose.connect(process.env.MONGODB_KEY, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
+mongoose
+  .connect(process.env.MONGODB_KEY, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 //define our models - Name schema
 const Schema = mongoose.Schema;
 const userSchema = new Schema({

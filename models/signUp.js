@@ -45,8 +45,8 @@ module.exports = {
     } else if (!password.match(/.{6,12}/)) {
       result.msgPwd = "Password must be 6-12 characters";
       validP = false;
-    } else if (!password.match(/^(?=.*[0-9]).{6,12}$/)) {
-      result.msgPwd = "Password must contain 1 digit";
+    } else if (!password.match(/^(?=.*[0-9])(?=.*[A-Z]).{6,12}$/)) {
+      result.msgPwd = "Password must contain a digit and a upper character";
       validP = false;
     } else validP = true;
 
