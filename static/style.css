@@ -118,6 +118,7 @@ p {
   max-width: 800px;
   height: 300px;
   display: inline;
+  border-radius: 20px;
 }
 /* main page  */
 .topMeals {
@@ -359,6 +360,7 @@ p {
     height: 300px;
     background-image: url("./images/hero_m.jpg");
     background-size: 300px 300px;
+    border-radius: 20px;
     margin: auto;
   }
   .hero img {

@@ -27,13 +27,12 @@ module.exports = {
     }
     //validation check
     if (validation) {
-      let errors = [];
       // tell mongoose to register this schema as a model and connect it to
       // names collection (if not there, it will automatically create)
       User.findOne({ email: req.body.userId })
         .then((found) => {
           if (found.email == null) {
-            errors.push("Unregistered email");
+            result.msgId = "This Id is not registered";
           } else {
             bcrypt
               .compare(userPassword, found.password)
@@ -49,7 +48,7 @@ module.exports = {
                   }
                 } else {
                   console.log("password is not matched");
-                  result.msgPwd = "Password is incorrect";
+                  result.msgPwd = "The password is incorrect";
                   res.status(200).render("general/login", result);
                 }
               })
@@ -60,6 +59,8 @@ module.exports = {
         })
         .catch((err) => {
           console.log(`error finding this user`);
+          result.msgId = "This Id is not registered";
+          res.status(200).render("general/login", result);
         });
     } else res.status(200).render("general/login", result);
   },

@@ -13,9 +13,8 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
 
 app.set("views", __dirname + "/views");
-app.engine("handlebars", exphbs());
-app.engine(".hbs", exphbs({ extname: ".hbs" }));
-app.set("view engine", "handlebars");
+app.engine("hbs", exphbs({ extname: "hbs" }));
+app.set("view engine", "hbs");
 
 // set up express-session
 app.use(
@@ -31,8 +30,8 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();
 });
-// load controllers
 
+// load controllers
 const generalController = require("./controllers/general");
 app.use("/", generalController);
 
@@ -40,7 +39,6 @@ app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
 
-//----------------------------------
 function onHttpStart() {
   console.log("Express http server listening on port : " + HTTP_PORT);
 }

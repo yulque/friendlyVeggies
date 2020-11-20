@@ -18,23 +18,19 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
+  isClerk: Boolean,
 });
 userSchema.pre("save", function (next) {
-  var user = this; // User모델자체를 가르킴
+  var user = this; // User model itself
 
-  // isModified: password가 변경될때
   if (user.isModified("password")) {
-    // 비밀번호를 암호화 시킨다.
-    bcrypt.genSalt(10, function (err, salt) {
+    const SALT_NUM = 10;
+    bcrypt.genSalt(SALT_NUM, function (err, salt) {
       if (err) return next(err);
-      console.log("salt is : ", salt);
       bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) return next(err);
-        bcrypt.compare(user.password, hash).then((result) => {
-          console.log(result);
-        });
+        bcrypt.compare(user.password, hash).then((result) => {});
         user.password = hash;
-        console.log(hash);
         next();
       });
     });

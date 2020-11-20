@@ -45,21 +45,14 @@ module.exports = {
     } else if (!password.match(/.{6,12}/)) {
       result.msgPwd = "Password must be 6-12 characters";
       validP = false;
-    } else if (
-      !password.match(
-        /^(?=.*[0-9])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+-=|]).{6,12}$/
-      )
-    ) {
-      result.msgPwd =
-        "Password must contain 1 digit, upper case, special character";
+    } else if (!password.match(/^(?=.*[0-9]).{6,12}$/)) {
+      result.msgPwd = "Password must contain 1 digit";
       validP = false;
     } else validP = true;
 
     //if valid information, save and send message
     if (validFN && validLN && validE && validP) {
-      //let hash = bcrypt.hashSync(password, 10);
-      //password = hash;
-      console.log(email, firstName, lastName, password);
+      console.log(email, firstName, lastName);
       //make new name model
       var newUser = new User({
         email: email,
@@ -78,28 +71,23 @@ module.exports = {
           }
         } else {
           console.log("successfully saved to web322db!");
-          console.log("hashed pw is : ", password);
+          res.redirect("/welcome");
           //send mail to welcome user
           const sgMail = require("@sendgrid/mail");
           sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
           const msg = {
-            to: "yuriyoonkim@gmail.com",
+            to: email,
             from: "yryoon@myseneca.ca",
             subject: `Welcome to Friendly Veggies! ${firstName} ${lastName}`,
             html: `Welcome ${firstName} ${lastName}!<br>
                               Please enjoy our tasty and healthy meals`,
           };
           // Asyncronously sends the email
-          sgMail
-            .send(msg)
-            .then(() => {
-              res.redirect("/welcome");
-            })
-            .catch((err) => {
-              console.log(`Error : ${err}`);
-              res.render("general/signUp");
-            });
+          sgMail.send(msg).catch((err) => {
+            console.log(`Error : ${err}`);
+            res.render("general/signUp");
+          });
         }
       });
     } else res.render("general/signUp", result);
