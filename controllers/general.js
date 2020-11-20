@@ -28,11 +28,11 @@ router.post("/login", model_login.validate_user);
 // loggedin dashboard for user
 
 router.get("/dashboard/user", (req, res) => {
-  res.status(200).render("general/dashboardUser");
+  res.status(200).render("general/dashboard/dashboardUser");
 });
 // loggedin dashboard for data clerk
 router.get("/dashboard/dataClerk", (req, res) => {
-  res.status(200).render("general/dashboardDataClerk");
+  res.status(200).render("general/dashboard/dashboardDataClerk");
 });
 
 //logout
@@ -53,6 +53,6 @@ router.post("/signUp", model_signUp.validateSignUp);
 
 // signUp -> Welcome dashboard
 router.get("/welcome", (req, res) => {
-  res.render("general/welcome");
+  res.render("general/dashboard/welcome");
 });
 module.exports = router;
