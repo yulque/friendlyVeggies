@@ -25,4 +25,11 @@ window.onload = function () {
   onTheMenuBtn.onclick = function () {
     location.href = "/onTheMenu";
   };
+  // create meal kit
+  let createMealKit = document.getElementById("createMealKit");
+  if (createMealKit) {
+    createMealKit.onclick = function () {
+      location.href = "/dashboard/dataClerk/createMealKit";
+    };
+  }
 };

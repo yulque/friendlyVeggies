@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
-const User = require("./dbModel.js");
+const db = require("./dbModel.js");
 
 module.exports = {
   validateSignUp: function (req, res) {
@@ -54,7 +54,7 @@ module.exports = {
     if (validFN && validLN && validE && validP) {
       console.log(email, firstName, lastName);
       //make new name model
-      var newUser = new User({
+      var newUser = new db.userModel({
         email: email,
         fName: firstName,
         lName: lastName,

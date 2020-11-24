@@ -1,5 +1,5 @@
 // connect to the mongoDB
-const User = require("./dbModel");
+const db = require("./dbModel");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 module.exports = {
@@ -29,10 +29,11 @@ module.exports = {
     if (validation) {
       // tell mongoose to register this schema as a model and connect it to
       // names collection (if not there, it will automatically create)
-      User.findOne({ email: req.body.userId })
+      db.userModel
+        .findOne({ email: req.body.userId })
         .then((found) => {
           if (found.email == null) {
-            result.msgId = "This Id is not registered";
+            result.msgId = "This id is not registered";
           } else {
             bcrypt
               .compare(userPassword, found.password)

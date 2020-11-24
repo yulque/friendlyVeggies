@@ -7,7 +7,7 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log("MongoDB is connected"))
   .catch((err) => console.log(err));
 //define our models - Name schema
 const Schema = mongoose.Schema;
@@ -40,5 +40,24 @@ userSchema.pre("save", function (next) {
   } else {
     next();
   }
-}); //*
-module.exports = mongoose.model("users", userSchema);
+});
+const mealKitSchema = new Schema({
+  title: {
+    type: String,
+    unique: true,
+  },
+  ingredients: String,
+  description: String,
+  category: String,
+  price: String,
+  cookingTime: Number,
+  servings: Number,
+  calories: Number,
+  isTopMeal: Boolean,
+  image: String,
+});
+
+module.exports = {
+  userModel: mongoose.model("users", userSchema),
+  mealKitModel: mongoose.model("mealKit", mealKitSchema),
+};

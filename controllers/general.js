@@ -3,8 +3,10 @@ const router = express.Router(); //to add additional urls like app
 const data = require("../static/data.js");
 const model_login = require("../models/login.js");
 const model_signUp = require("../models/signUp.js");
+const model_fileUpload = require("../models/fileUpload");
 router.use(express.static("static"));
 router.use("/dashboard", express.static("static"));
+router.use("/dashboard/dataClerk", express.static("static"));
 function requireLogin(req, res, next) {
   if (req.session.user) {
     next();
@@ -34,7 +36,13 @@ router.get("/dashboard/user", (req, res) => {
 router.get("/dashboard/dataClerk", (req, res) => {
   res.status(200).render("general/dashboard/dashboardDataClerk");
 });
-
+router.get("/dashboard/dataClerk/createMealKit", (req, res) => {
+  res.render("general/dashboard/createMealKit");
+});
+router.post(
+  "/dashboard/dataClerk/createMealKit",
+  model_fileUpload.uploadMealKit
+);
 //logout
 router.get("/logOut", (req, res) => {
   req.session.destroy();
@@ -50,9 +58,9 @@ router.get("/signUp", (req, res) => {
 });
 // signUp validation
 router.post("/signUp", model_signUp.validateSignUp);
-
 // signUp -> Welcome dashboard
 router.get("/welcome", (req, res) => {
   res.render("general/dashboard/welcome");
 });
+
 module.exports = router;

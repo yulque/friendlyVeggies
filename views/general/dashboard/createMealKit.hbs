@@ -1,0 +1,62 @@
+<div class="createMealKit">
+    <div class="title">Create Meal Kit</div>
+    <form id="mealKit" name="mealKit" method="POST">
+
+        <div class="inputMealKit">
+            <label for="title">title</label><br />
+            <input type="text" name="title" id="title" placeholder="Bibimbap" value="{{title}}"
+                title=" title of food" /><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="ingredients">ingredients</label><br />
+            <input type="text" name="ingredients" id="ingredients" placeholder="sprout beans, brown rice"
+                value="{{ingredients}}" title="ingredients" /><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="description">description</label><br />
+            <textarea name="description" id="description" placeholder="Gingery pork, crunchy cucumbers and
+toasty peanuts make for a classic culinary ..." value="{{description}}" title="description"></textarea><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="category">category</label><br />
+            <select name="category" id="category" value="{{title}}" title="category" /><br />
+            <option value="classic meals">classic meals</option>
+            <option value="classic meals">vegan meals</option>
+            <option value="classic meals">snacks</option>
+            </select>
+        </div>
+        <div class="inputMealKit">
+            <label for="price">price($)</label><br />
+            <input type="number" name="price" id="price" step="0.01" placeholder="19.99" value="{{price}}"
+                title="price" /><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="cookingTime">cookingTime(minutes)</label><br />
+            <input type="number" name="cookingTime" id="cookingTime" placeholder="20" value="{{cookingTime}}"
+                title="cookingTime" /><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="serving">serving</label><br />
+            <input type="number" name="serving" id="serving" placeholder="2" value="{{serving}}"
+                title="serving" /><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="calories">calories for serving</label><br />
+            <input type="number" name="calories" id="calories" placeholder="790" value="{{calories}}"
+                title="calories" /><br />
+        </div>
+        <div class="inputMealKit">
+            <label for="isTopMeal">is it a top meal?</label><br />
+            <select name="isTopMeal" id="isTopMeal" value="{{isTopMeal}}" title="isTopMeal" /><br />
+            <option value="True"> Yes </option>
+            <option value=""> No </option>
+            </select>
+        </div>
+        <div class="inputMealKit">
+            <label for="imageUpload">image upload</label><br />
+            <input type="text" name="imageUpload" id="imageUpload" placeholder="790" value="{{imageUpload}}"
+                title="imageUpload" /><br />
+        </div>
+        <input type="submit" value="create" />
+    </form>
+</div>
