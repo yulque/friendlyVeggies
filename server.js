@@ -4,16 +4,26 @@ const exphbs = require("express-handlebars");
 const HTTP_PORT = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const fileUpload = require("express-fileupload");
+const multer = require("multer");
+const Handlebars = require("handlebars");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("static"));
-
+app.use(fileUpload());
+//app.use(multer());
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
 
 app.set("views", __dirname + "/views");
-app.engine("hbs", exphbs({ extname: "hbs" }));
+app.engine(
+  "hbs",
+  exphbs({
+    extname: "hbs",
+    //handlebars: allowInsecurePrototypeAccess(Handlebars),
+  })
+);
 app.set("view engine", "hbs");
 
 // set up express-session

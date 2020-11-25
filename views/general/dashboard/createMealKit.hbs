@@ -1,11 +1,15 @@
 <div class="createMealKit">
+    {{#if saved}}
+    <div class="savedMsg"><i class="fas fa-check-circle"></i> Saved! </div>
+    {{/if}}
     <div class="title">Create Meal Kit</div>
-    <form id="mealKit" name="mealKit" method="POST">
+    <form id="mealKit" name="mealKit" method="POST" enctype="multipart/form-data">
 
         <div class="inputMealKit">
             <label for="title">title</label><br />
             <input type="text" name="title" id="title" placeholder="Bibimbap" value="{{title}}"
                 title=" title of food" /><br />
+            <div class="loginAlert">{{errTitle}}</div>
         </div>
         <div class="inputMealKit">
             <label for="ingredients">ingredients</label><br />
@@ -54,8 +58,8 @@ toasty peanuts make for a classic culinary ..." value="{{description}}" title="d
         </div>
         <div class="inputMealKit">
             <label for="imageUpload">image upload</label><br />
-            <input type="text" name="imageUpload" id="imageUpload" placeholder="790" value="{{imageUpload}}"
-                title="imageUpload" /><br />
+            <input type="file" name="imageUpload" id="imageUpload" placeholder="790" value="{{imageUpload}}"
+                title="imageUpload" accept="image/png, image/jpeg, image/jpg, image/gif" /><br />
         </div>
         <input type="submit" value="create" />
     </form>

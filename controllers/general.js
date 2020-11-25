@@ -1,9 +1,23 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router(); //to add additional urls like app
 const data = require("../static/data.js");
 const model_login = require("../models/login.js");
 const model_signUp = require("../models/signUp.js");
 const model_fileUpload = require("../models/fileUpload");
+const model_loadingData = require("../models/loadingData.js");
+const multer = require("multer");
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "static/uploads/");
+    },
+    filename: function (req, file, cb) {
+      cb(null, new Date().valueOf() + path.extname(file.originalname));
+    },
+  }),
+});
+
 router.use(express.static("static"));
 router.use("/dashboard", express.static("static"));
 router.use("/dashboard/dataClerk", express.static("static"));
@@ -37,10 +51,12 @@ router.get("/dashboard/dataClerk", (req, res) => {
   res.status(200).render("general/dashboard/dashboardDataClerk");
 });
 router.get("/dashboard/dataClerk/createMealKit", (req, res) => {
+  if (req.status == 201) alert(`saved!`);
   res.render("general/dashboard/createMealKit");
 });
 router.post(
   "/dashboard/dataClerk/createMealKit",
+  upload.single("imageUpload"),
   model_fileUpload.uploadMealKit
 );
 //logout
@@ -49,9 +65,8 @@ router.get("/logOut", (req, res) => {
   res.redirect("/login");
 });
 // on the menu page
-router.get("/onTheMenu", (req, res) => {
-  res.status(200).render("general/onTheMenu", data.recipe);
-});
+router.get("/onTheMenu", model_loadingData.loadAllData);
+
 // signUp
 router.get("/signUp", (req, res) => {
   res.status(200).render("general/signUp");

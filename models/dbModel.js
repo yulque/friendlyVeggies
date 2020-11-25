@@ -1,14 +1,27 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 // connect to the mongoDB
+let db, users, mealKits;
 mongoose
   .connect(process.env.MONGODB_KEY, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then(() => console.log("MongoDB is connected"))
-  .catch((err) => console.log(err));
+  .then((database) => {
+    console.log("MongoDB is connected");
+    //console.log(database);
+    //db = database.db("web322db");
+    //db.collection("users");
+    //console.log(db);
+    //database.Collection("users");
+    // let mealKits = db.mealKits;
+    // console.log(users, mealKits);
+  })
+  .catch((err) => console.log("MongoDB failed to connect", err));
+// find collections
+//let mealKit = db.Collection("mealKit");
+
 //define our models - Name schema
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -54,10 +67,13 @@ const mealKitSchema = new Schema({
   servings: Number,
   calories: Number,
   isTopMeal: Boolean,
-  image: String,
+  imageUpload: String,
 });
 
 module.exports = {
   userModel: mongoose.model("users", userSchema),
   mealKitModel: mongoose.model("mealKit", mealKitSchema),
+  db: db,
+  users: users,
+  mealKits: mealKits,
 };
