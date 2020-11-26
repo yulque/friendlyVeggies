@@ -3,23 +3,30 @@ const mealKitModel = db.mealKitModel;
 
 module.exports = {
   loadAllData: function (req, res) {
+    //console.log("req here is", req);
+    if (req.route.path == "/") console.log("say yay!");
     db.mealKitModel
-      .find({}, function (err, items) {
+      .find({}, null, { sort: { imageUpload: -1 } }, function (err, items) {
         //console.log("this is items p1 | ", items);
-        const context = {
-          food: items.map((item) => item.toJSON()),
-        };
-        console.log(context);
-        res.render("general/onTheMenu", context);
+
+        //console.log(context);
+        if (req.route.path == "/") {
+          const context = {
+            food: items.slice(0, 8).map((item) => item.toJSON()),
+          };
+          res.render("general/home", context);
+        } else if (req.route.path == "/onTheMenu") {
+          const context = {
+            food: items.map((item) => item.toJSON()),
+          };
+          res.render("general/onTheMenu", context);
+        } else if (req.route.path == "/dashboard/dataClerk/viewAllMeals") {
+          const context = {
+            food: items.map((item) => item.toJSON()),
+          };
+          res.render("general/dashboard/viewAllMeals", context);
+        }
       })
       .catch((err) => console.log(err));
-
-    // .then((items) => console.log(items));
-    //   .toArray((err, items) => {
-    //     console.log(items);
-    //     db.close();
-    //   })
-    //   .then(res.json(items))
-    //   .catch((err) => console.log(`error while loading data`, err));
   },
 };

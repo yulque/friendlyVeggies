@@ -26,6 +26,9 @@ textarea {
   font-family: "Kufam", cursive;
   font-family: "Rubik", sans-serif;
 }
+.display-none {
+  display: none;
+}
 /*grid */
 .item1 {
   grid-row: 1/2;
@@ -106,7 +109,8 @@ textarea {
   background-color: #478559;
   color: white;
 }
-.btnMealKit {
+.btnMealKit,
+.btnViewAllMeals {
   padding: 1px 10px;
   width: 200px;
   height: 40px;
@@ -148,7 +152,8 @@ textarea {
 }
 .container-topmeal {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 240px);
+  grid-template-columns: repeat(4, 240px);
+  grid-template-rows: repeat(2, auto);
   grid-column-gap: 0.5em;
   grid-row-gap: 0.5em;
   font-size: 10;
@@ -335,6 +340,14 @@ select {
   margin: auto;
   text-align: center;
   color: #f95d9b;
+}
+.viewAllMeals {
+  text-align: center;
+}
+.mealKitSmall {
+  border: solid 1px black;
+  width: 50%;
+  margin: auto;
 }
 /* footer */
 .footer {

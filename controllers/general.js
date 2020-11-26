@@ -1,17 +1,18 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
 const router = express.Router(); //to add additional urls like app
 const data = require("../static/data.js");
 const model_login = require("../models/login.js");
 const model_signUp = require("../models/signUp.js");
 const model_fileUpload = require("../models/fileUpload");
 const model_loadingData = require("../models/loadingData.js");
-const bodyParser = require("body-parser");
+const model_updateData = require("../models/updateData.js");
+
 const multer = require("multer");
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      console.log("Yo are you here? req.body is ", req.body);
       cb(null, "static/uploads/");
     },
     filename: function (req, file, cb) {
@@ -19,8 +20,9 @@ const upload = multer({
     },
   }),
 });
+
+router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: false }));
 router.use(express.static("static"));
 router.use("/dashboard", express.static("static"));
 router.use("/dashboard/dataClerk", express.static("static"));
@@ -31,14 +33,12 @@ function requireLogin(req, res, next) {
     res.redirect("/login");
   }
 }
-
-router.all("/dashboard/*", requireLogin, (req, res, next) => {
-  next();
-});
+// edit it later->
+// router.all("/dashboard/*", requireLogin, (req, res, next) => {
+//   next();
+// });
 // index
-router.get("/", (req, res) => {
-  res.status(200).render("general/home", data.recipe);
-});
+router.get("/", model_loadingData.loadAllData);
 // login
 router.get("/logIn", (req, res) => {
   if (req.method == "GET") res.status(200).render("general/login");
@@ -55,7 +55,6 @@ router.get("/dashboard/dataClerk", (req, res) => {
   res.status(200).render("general/dashboard/dashboardDataClerk");
 });
 router.get("/dashboard/dataClerk/createMealKit", (req, res) => {
-  if (req.status == 201) alert(`saved!`);
   res.render("general/dashboard/createMealKit");
 });
 router.post(
@@ -64,7 +63,11 @@ router.post(
   model_fileUpload.uploadMealKit
   //
 );
+
+router.get("/dashboard/dataClerk/viewAllMeals", model_loadingData.loadAllData);
+router.post("/dashboard/dataClerk/viewAllMeals", model_updateData.updateData);
 //logout
+
 router.get("/logOut", (req, res) => {
   req.session.destroy();
   res.redirect("/login");

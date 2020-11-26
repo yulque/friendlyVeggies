@@ -1,0 +1,22 @@
+<div class="viewAllMeals" id="viewAllMeals">
+    <div id="container-mealkit" class="container-mealkit">
+        {{#if isSaved}}
+        <div class="savedMsg"><i class="fas fa-check-circle"></i> Saved! </div>
+        {{/if}}
+
+        {{#each food}}
+        <div class="mealKitSmall">
+            <h5 id="mealKitTitle" value="{{title}}">title : {{title}}</h5>
+            <h6 id=" mealKitIngr" value="{{ingredients}}">ingredients : {{ingredients}}</h6>
+            <h6 id="mealKitDesc" value="{{description}}">description : {{description}}</h6>
+            <h6 id="mealKitCat" value="{{category}}">category : {{category}}</h6>
+            <h6 id="mealKitPrice" value="{{price}}">price : {{price}}</h6>
+            <h6 id="mealKitCookingTime" value="{{cookingTime}}">cooking time : {{cookingTime}}</h6>
+            <h6 id="mealKitCal" value="{{calories}}">calories : {{calories}}</h6>
+            <h6 id="mealKitTopMeal" value="{{isTopMeal}}">is Top meal? {{isTopMeal}}</h6>
+            <h6 id="mealKitId" class="display-none" value="{{_id}}"></h6>
+            <button type="button" id="editMealKit_{{title}}" class="editMealKit">edit</button>
+        </div>
+        {{/each}}
+    </div>
+</div>

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const exphbs = require("express-handlebars");
 const HTTP_PORT = process.env.PORT || 8080;
-//const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const session = require("express-session");
 //const fileUpload = require("express-fileupload");
 //const multer = require("multer");
@@ -16,8 +16,8 @@ const session = require("express-session");
 //     },
 //   }),
 // });
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("static"));
 //app.use(fileUpload());
 //app.use(multer({ dest: "static/uploads/" }).single("imageUpload"));

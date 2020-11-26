@@ -33,13 +33,13 @@
     </div>
     <div id="container-topmeal" class="container-topmeal">
         {{#each food}}
-        {{#if topMeal}}
+        {{#if isTopMeal}}
         <div class="topMealSmall">
-            <img src="images/topmeal{{id}}.jpg" alt="meal" />
+            <img src="uploads/{{imageUpload}}" alt="meal" />
             <div class="topMealDesc">
                 <h4>{{title}}</h4>
-                <h6>{{ingr}}</h6>
-                <p>{{detail}}</p>
+                <h6>{{ingredients}}</h6>
+                <p>{{category}}</p>
                 <button>{{price}}</button>
             </div>
         </div>
