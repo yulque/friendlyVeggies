@@ -52,28 +52,36 @@ window.onload = function () {
   let mealKitSmall = document.getElementsByClassName("mealKitSmall");
   if (mealKitSmall) {
     console.log("script.js - mealKitSmall ", mealKitSmall[0]);
-    console.log("script.js - childnode17 ", mealKitSmall[0].childNodes[17]);
-    let editBtn = mealKitSmall[0].childNodes[19];
+    console.log("script.js - childnode19 ", mealKitSmall[0].childNodes[19]);
+    let editBtn = mealKitSmall[0].childNodes[21];
     editBtn.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopImmediatePropagation();
-      let title = mealKitSmall[0].childNodes[1].getAttribute("value");
-      let ing = mealKitSmall[0].childNodes[3].getAttribute("value");
-      let id = mealKitSmall[0].childNodes[17].getAttribute("value");
-      console.log("what is id ", id);
+      let children = mealKitSmall[0].childNodes;
+      let items = [];
+      for (let i = 0; i < children.length; i++) {
+        if (i % 2 != 0) {
+          items.push(children[i].getAttribute("value"));
+          console.log("children[i]", children[i].getAttribute("value"));
+        }
+      }
       mealKitSmall[0].innerHTML = `
       <form id="mealKitForm" method="POST">
-      <h5 id="mealKitTitle">title : <input type="text" name="title" value="${title}" /></h5>
-      <h6 id="mealKitIngr">ingredients : <input type="text" name="ingredients" value="${ing}"/></h6>
-      <h6 id="mealKitDesc">description : <input type="text" name="description" /></h6>
-      <h6 id="mealKitCat">category : <input type="text" name="category" /></h6>
-      <h6 id="mealKitPrice">price : <input type="number" name="price" /></h6>
-      <h6 id="mealKitCookingTime">cooking time : <input type="number" /></h6>
-      <h6 id="mealKitCal">calories : <input type="number" /></h6>
-      <h6 id="mealKitTopMeal">is Top meal? <input type="text" /></h6>
-      <input type="hidden" name="id" value="${id}">
-      </form>
-      <button type="submit" form="mealKitForm" class="editMealKit">submit</button><br />
+      <h5 id="mealKitTitle">title : <input type="text" name="title" value="${items[0]}" /></h5>
+      <h6 id="mealKitIngr">ingredients : <input type="text" name="ingredients" value="${items[1]}"/></h6>
+      <h6 id="mealKitDesc">description : <input type="text" name="description" value="${items[2]}"/></h6>
+      <h6 id="mealKitCat">category : <input type="text" name="category" value="${items[3]}"/></h6>
+      <h6 id="mealKitPrice">price : <input type="number" name="price" value="${items[4]}"/></h6>
+      <h6 id="mealKitCookingTime">cooking time : <input type="number" name="cookingTime" value="${items[5]}"/></h6>
+      <h6 id="mealKitServings">servings : <input type="number" name="servings" value="${items[6]}"/></h6>
+      <h6 id="mealKitCal">calories : <input type="number" name="calories" value="${items[7]}"/></h6>
+      <h6 id="mealKitTopMeal">is Top meal? <select name="isTopMeal" value="${items[8]}"> 
+      <option value="True"> Yes </option>
+      <option value=""> No </option></h6>
+      <input type="hidden" name="id" value="${items[9]}">
+      </form></br>
+      <button type="submit" form="mealKitForm" class="editMealKit">submit</button>
+      <button type="button" class="editMealKit" onclick="window.location.reload()">cancel</button><br />
       `;
     });
   }

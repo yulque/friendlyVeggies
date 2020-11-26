@@ -342,12 +342,18 @@ select {
   color: #f95d9b;
 }
 .viewAllMeals {
-  text-align: center;
 }
 .mealKitSmall {
   border: solid 1px black;
+  text-align: left;
   width: 50%;
   margin: auto;
+  padding: 1rem;
+  line-height: 1.5rem;
+}
+.mealKitSmall select {
+  font-size: 15px;
+  width: 6rem;
 }
 /* footer */
 .footer {

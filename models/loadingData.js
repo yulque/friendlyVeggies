@@ -6,7 +6,7 @@ module.exports = {
     //console.log("req here is", req);
     if (req.route.path == "/") console.log("say yay!");
     db.mealKitModel
-      .find({}, null, { sort: { imageUpload: -1 } }, function (err, items) {
+      .find({}, null, { sort: { _id: -1 } }, function (err, items) {
         //console.log("this is items p1 | ", items);
 
         //console.log(context);
