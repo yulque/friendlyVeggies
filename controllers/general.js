@@ -6,10 +6,12 @@ const model_login = require("../models/login.js");
 const model_signUp = require("../models/signUp.js");
 const model_fileUpload = require("../models/fileUpload");
 const model_loadingData = require("../models/loadingData.js");
+const bodyParser = require("body-parser");
 const multer = require("multer");
 const upload = multer({
   storage: multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: (req, file, cb) => {
+      console.log("Yo are you here? req.body is ", req.body);
       cb(null, "static/uploads/");
     },
     filename: function (req, file, cb) {
@@ -17,7 +19,8 @@ const upload = multer({
     },
   }),
 });
-
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 router.use(express.static("static"));
 router.use("/dashboard", express.static("static"));
 router.use("/dashboard/dataClerk", express.static("static"));
@@ -28,6 +31,7 @@ function requireLogin(req, res, next) {
     res.redirect("/login");
   }
 }
+
 router.all("/dashboard/*", requireLogin, (req, res, next) => {
   next();
 });
@@ -58,6 +62,7 @@ router.post(
   "/dashboard/dataClerk/createMealKit",
   upload.single("imageUpload"),
   model_fileUpload.uploadMealKit
+  //
 );
 //logout
 router.get("/logOut", (req, res) => {

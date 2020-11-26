@@ -37,9 +37,9 @@ module.exports = {
     newMealKit
       .save()
       .then((mealSaved) => {
-        req.file.filename = `${mealSaved._id}${
-          path.parse(req.file.originalname).ext
-        }`;
+        // req.file.filename = `${mealSaved._id}${
+        //   path.parse(req.file.originalname).ext
+        // }`;
         db.mealKitModel
           .updateOne(
             {
@@ -47,19 +47,9 @@ module.exports = {
             },
             { imageUpload: req.file.filename }
           )
-          .then((saved) => console.log(saved))
+          .then()
           .catch((err) => console.log(err));
         console.log(req.body);
-
-        // req.file
-        //   .mv(`../static/uploads/${req.file.filename}`)
-        //   .then(() => {
-        //     console.log(req.file);
-        //     //db.mealKitModel.updateOne({
-        //     //  _id: mealSaved._id,
-        //     //});
-        //   })
-        //   .catch((err) => console.log(err));
 
         console.log(`meal kit is successfully saved`);
         //res.write('<script language="javascript">alert("test")</script>');

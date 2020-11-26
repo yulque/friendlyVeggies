@@ -73,7 +73,4 @@ const mealKitSchema = new Schema({
 module.exports = {
   userModel: mongoose.model("users", userSchema),
   mealKitModel: mongoose.model("mealKit", mealKitSchema),
-  db: db,
-  users: users,
-  mealKits: mealKits,
 };

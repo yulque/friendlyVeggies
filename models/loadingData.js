@@ -3,15 +3,13 @@ const mealKitModel = db.mealKitModel;
 
 module.exports = {
   loadAllData: function (req, res) {
-    let arr = {};
     db.mealKitModel
       .find({}, function (err, items) {
         //console.log("this is items p1 | ", items);
         const context = {
           food: items.map((item) => item.toJSON()),
         };
-        arr.food = items;
-        //console.log(arr);
+        console.log(context);
         res.render("general/onTheMenu", context);
       })
       .catch((err) => console.log(err));
