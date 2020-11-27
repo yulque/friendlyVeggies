@@ -1,15 +1,10 @@
 const db = require("./dbModel.js");
-const mealKitModel = db.mealKitModel;
 
 module.exports = {
   loadAllData: function (req, res) {
-    //console.log("req here is", req);
-    if (req.route.path == "/") console.log("say yay!");
     db.mealKitModel
       .find({}, null, { sort: { _id: -1 } }, function (err, items) {
-        //console.log("this is items p1 | ", items);
-
-        //console.log(context);
+        // if req is from home top meal, only show 8 tops.
         if (req.route.path == "/") {
           const context = {
             food: items.slice(0, 8).map((item) => item.toJSON()),

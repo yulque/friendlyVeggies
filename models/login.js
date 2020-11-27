@@ -42,10 +42,13 @@ module.exports = {
                   console.log("password is matched");
                   //create a new session
                   req.session.user = found;
+                  result.isClerk = found.isClerk;
                   if (found.isClerk) {
-                    res.redirect("/dashboard/dataClerk");
+                    //res.render("general/dashboard/dataClerk", result);
+                    res.redirect("/dashboard");
                   } else {
-                    res.redirect("/dashboard/user");
+                    //res.render("general/dashboard/user", result);
+                    res.redirect("/dashboard");
                   }
                 } else {
                   console.log("password is not matched");

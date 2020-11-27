@@ -1,26 +1,34 @@
 window.onload = function () {
-  //index.html - go to login
+  //home - go to login
   let loginBtn = document.getElementById("logIn");
   if (loginBtn) {
     loginBtn.onclick = function () {
       location.href = "/login";
     };
   }
-  //log out
+  //home - log out button
   let logoutBtn = document.getElementById("logOut");
   if (logoutBtn) {
     logoutBtn.onclick = function () {
       location.href = "/logOut";
     };
   }
-  //index.html - go to signup
+  //home - go to signup
   let signUpBtn = document.getElementById("signUp");
   if (signUpBtn) {
     signUpBtn.onclick = function () {
       location.href = "/signUp";
     };
   }
-  //index - go to onTheMenu
+  //home - dash board
+  let dashboardBtn = document.getElementById("dashboard");
+  if (dashboardBtn) {
+    dashboardBtn.onclick = function () {
+      location.href = "/dashboard";
+      console.log(request);
+    };
+  }
+  //home - go to onTheMenu
   let onTheMenuBtn = document.getElementById("onTheMenu-btn");
   onTheMenuBtn.onclick = function () {
     location.href = "/onTheMenu";

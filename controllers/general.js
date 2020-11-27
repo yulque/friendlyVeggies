@@ -43,15 +43,15 @@ router.get("/logIn", (req, res) => {
 });
 // login validation
 router.post("/login", model_login.validate_user);
-// loggedin dashboard for user
 
-router.get("/dashboard/user", (req, res) => {
-  res.status(200).render("general/dashboard/dashboardUser");
+// dashboard
+router.get("/dashboard", (req, res) => {
+  //console.log("at dashboard get, req is : ", req, req.session);
+  if (req.session.user.isClerk)
+    res.status(200).render("general/dashboard/dashboardDataClerk");
+  else res.status(200).render("general/dashboard/dashboardUser");
 });
-// loggedin dashboard for data clerk
-router.get("/dashboard/dataClerk", (req, res) => {
-  res.status(200).render("general/dashboard/dashboardDataClerk");
-});
+
 // create meal kit on data clerk dashboard
 router.get("/dashboard/dataClerk/createMealKit", (req, res) => {
   res.render("general/dashboard/createMealKit");
@@ -60,7 +60,6 @@ router.post(
   "/dashboard/dataClerk/createMealKit",
   upload.single("imageUpload"),
   model_fileUpload.uploadMealKit
-  //
 );
 
 //view meal kit and editthem on data clerk dashboard
