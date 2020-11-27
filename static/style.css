@@ -337,6 +337,7 @@ select {
   padding: 2rem 32px;
   width: 12.7rem;
   margin: 1rem auto;
+  text-align: center;
 }
 /*Welcome Page*/
 .welcomeContainer {

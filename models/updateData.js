@@ -25,7 +25,6 @@ module.exports = {
               food: docs.map((item) => item.toJSON()),
               isSaved: true,
             };
-            console.log(items);
             res.render("general/dashboard/viewAllMeals", items);
           })
           .catch((err) =>

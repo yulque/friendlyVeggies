@@ -41,7 +41,7 @@ module.exports = {
           )
           .then()
           .catch((err) => console.log(err));
-        console.log(req.body, `meal kit is successfully saved `);
+        console.log(`meal kit is successfully saved `);
         result.saved = true;
         res.status(201).render("general/dashboard/createMealKit", result);
       })
