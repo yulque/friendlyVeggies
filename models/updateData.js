@@ -1,9 +1,8 @@
+// data clerk edits meal kits
 const db = require("./dbModel.js");
-const mealKitModel = db.mealKitModel;
 
 module.exports = {
   updateData: function (req, res) {
-    console.log("req here in update function ", req.body);
     db.mealKitModel
       .updateOne(
         { _id: req.body.id },

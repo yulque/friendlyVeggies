@@ -2,13 +2,11 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const router = express.Router(); //to add additional urls like app
-const data = require("../static/data.js");
 const model_login = require("../models/login.js");
 const model_signUp = require("../models/signUp.js");
 const model_fileUpload = require("../models/fileUpload");
 const model_loadingData = require("../models/loadingData.js");
 const model_updateData = require("../models/updateData.js");
-
 const multer = require("multer");
 const upload = multer({
   storage: multer.diskStorage({
@@ -33,10 +31,10 @@ function requireLogin(req, res, next) {
     res.redirect("/login");
   }
 }
-// edit it later->
-// router.all("/dashboard/*", requireLogin, (req, res, next) => {
-//   next();
-// });
+
+router.all("/dashboard/*", requireLogin, (req, res, next) => {
+  next();
+});
 // index
 router.get("/", model_loadingData.loadAllData);
 // login
@@ -54,6 +52,7 @@ router.get("/dashboard/user", (req, res) => {
 router.get("/dashboard/dataClerk", (req, res) => {
   res.status(200).render("general/dashboard/dashboardDataClerk");
 });
+// create meal kit on data clerk dashboard
 router.get("/dashboard/dataClerk/createMealKit", (req, res) => {
   res.render("general/dashboard/createMealKit");
 });
@@ -64,14 +63,16 @@ router.post(
   //
 );
 
+//view meal kit and editthem on data clerk dashboard
 router.get("/dashboard/dataClerk/viewAllMeals", model_loadingData.loadAllData);
 router.post("/dashboard/dataClerk/viewAllMeals", model_updateData.updateData);
-//logout
 
+//logout
 router.get("/logOut", (req, res) => {
   req.session.destroy();
   res.redirect("/login");
 });
+
 // on the menu page
 router.get("/onTheMenu", model_loadingData.loadAllData);
 

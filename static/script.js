@@ -32,35 +32,38 @@ window.onload = function () {
       location.href = "/dashboard/dataClerk/createMealKit";
     };
   }
+  // view meal kit list
   let viewAllMeals = document.getElementById("viewMealKits");
   if (viewAllMeals) {
     viewAllMeals.onclick = function () {
       location.href = "/dashboard/dataClerk/viewAllMeals";
     };
   }
+  // edit meal kits
   let mealKitSmall = document.getElementsByClassName("mealKitSmall");
   if (mealKitSmall) {
-    //console.log("script.js - mealKitSmall ", mealKitSmall[0]);
-    //console.log("script.js - childnode19 ", mealKitSmall[0].childNodes[19]);
     let thisBtn = document.getElementsByClassName("editMealKitBtn");
     for (let i = 0; i < thisBtn.length; i++) {
       thisBtn[i].addEventListener("click", (event) => {
         event.preventDefault();
-        //event.stopImmediatePropagation();
         let children = mealKitSmall[i].childNodes;
         let items = [];
         for (let j = 0; j < children.length; j++) {
           if (j % 2 != 0) {
             items.push(children[j].getAttribute("value"));
-            console.log("children[j]", children[j].getAttribute("value"));
           }
         }
+        // when user clicks edit, it changes
         mealKitSmall[i].innerHTML = `
         <form id="mealKitForm" method="POST">
         <h5 id="mealKitTitle">title : <input type="text" name="title" value="${items[0]}" /></h5>
         <h6 id="mealKitIngr">ingredients : <input type="text" name="ingredients" value="${items[1]}"/></h6>
         <h6 id="mealKitDesc">description : <input type="text" name="description" value="${items[2]}"/></h6>
-        <h6 id="mealKitCat">category : <input type="text" name="category" value="${items[3]}"/></h6>
+        <h6 id="mealKitCat">category : <select name="category" id="category" value="${items[3]}" title="category" /><br />
+        <option value="classic meals">classic meals</option>
+        <option value="vegan meals">vegan meals</option>
+        <option value="snacks">snacks</option>
+        </select></h6>
         <h6 id="mealKitPrice">price : <input type="number" name="price" value="${items[4]}"/></h6>
         <h6 id="mealKitCookingTime">cooking time : <input type="number" name="cookingTime" value="${items[5]}"/></h6>
         <h6 id="mealKitServings">servings : <input type="number" name="servings" value="${items[6]}"/></h6>

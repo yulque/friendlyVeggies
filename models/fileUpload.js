@@ -1,8 +1,6 @@
+// create meal kit
 const db = require("./dbModel.js");
-const path = require("path");
-const { userInfo } = require("os");
 
-//const { mealKitModel } = require("./dbModel.js");
 module.exports = {
   uploadMealKit: function (req, res) {
     const {
@@ -30,16 +28,10 @@ module.exports = {
       imageUpload: imageUpload,
     });
     let result = {};
-    //console.log(req);
-    console.log(req.body, " | ", req.body.title);
-    console.log(req.file);
     // save the meal kit
     newMealKit
       .save()
       .then((mealSaved) => {
-        // req.file.filename = `${mealSaved._id}${
-        //   path.parse(req.file.originalname).ext
-        // }`;
         db.mealKitModel
           .updateOne(
             {
@@ -49,10 +41,7 @@ module.exports = {
           )
           .then()
           .catch((err) => console.log(err));
-        console.log(req.body);
-
-        console.log(`meal kit is successfully saved`);
-        //res.write('<script language="javascript">alert("test")</script>');
+        console.log(req.body, `meal kit is successfully saved `);
         result.saved = true;
         res.status(201).render("general/dashboard/createMealKit", result);
       })

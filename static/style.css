@@ -174,8 +174,17 @@ textarea {
 .topMealDesc h6 {
   color: grey;
 }
+.topMealDesc p {
+  font-size: 14px;
+}
 .topMealDesc button {
-  margin-top: 0.5rem;
+  line-height: 16px;
+  padding: 0.1rem 0.2rem 0 0.2rem;
+  border: solid 1px #478559;
+  border-radius: 20px;
+  font-family: "Kufam", cursive;
+  background-color: #478559;
+  color: white;
 }
 .title {
   width: 100%;
@@ -246,6 +255,13 @@ textarea {
   font-size: 18px;
   color: grey;
 }
+#onTheMenuCat {
+  color: #478559;
+}
+.onTheMenuDesc p {
+  font-size: 17px;
+  color: grey;
+}
 
 /* loginPage + signUpPage */
 .loginContainer {
@@ -289,6 +305,7 @@ select {
   margin-bottom: 0.1rem;
   font-size: 15px;
 }
+
 .inputMealKit {
   width: 13rem;
   margin: auto;

@@ -8,19 +8,11 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then((database) => {
+  .then(() => {
     console.log("MongoDB is connected");
-    //console.log(database);
-    //db = database.db("web322db");
-    //db.collection("users");
-    //console.log(db);
-    //database.Collection("users");
-    // let mealKits = db.mealKits;
-    // console.log(users, mealKits);
   })
-  .catch((err) => console.log("MongoDB failed to connect", err));
+  .catch((err) => console.log("MongoDB failed to connect ", err));
 // find collections
-//let mealKit = db.Collection("mealKit");
 
 //define our models - Name schema
 const Schema = mongoose.Schema;
@@ -36,16 +28,16 @@ const userSchema = new Schema({
   },
   isClerk: Boolean,
 });
+// when save, it hashes password
 userSchema.pre("save", function (next) {
   var user = this; // User model itself
-
   if (user.isModified("password")) {
     const SALT_NUM = 10;
     bcrypt.genSalt(SALT_NUM, function (err, salt) {
       if (err) return next(err);
       bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) return next(err);
-        bcrypt.compare(user.password, hash).then((result) => {});
+        bcrypt.compare(user.password, hash).then(() => {});
         user.password = hash;
         next();
       });
@@ -54,6 +46,7 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
+// meal schema
 const mealKitSchema = new Schema({
   title: {
     type: String,
