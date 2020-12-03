@@ -103,8 +103,6 @@ window.onload = function () {
                 .text()
                 .then((form) => console.log(form))
                 .catch((err) => console.log(err));
-
-              response.body.formData().then((text) => console.log(text));
             })
             .catch((err) => consolš.log(err));
           // .then(function (response) {
