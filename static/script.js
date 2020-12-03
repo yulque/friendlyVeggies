@@ -47,6 +47,7 @@ window.onload = function () {
       location.href = "/dashboard/dataClerk/viewAllMeals";
     };
   }
+
   // edit meal kits
   let mealKitSmall = document.getElementsByClassName("mealKitSmall");
   if (mealKitSmall) {
@@ -61,9 +62,9 @@ window.onload = function () {
             items.push(children[j].getAttribute("value"));
           }
         }
-        // when user clicks edit, it changes
+        // when user clicks edit, it changes to edit
         mealKitSmall[i].innerHTML = `
-        <form id="mealKitForm" method="POST">
+        <form id="mealKitForm" method="POST" onsubmit="">
         <h5 id="mealKitTitle">title : <input type="text" name="title" value="${items[0]}" /></h5>
         <h6 id="mealKitIngr">ingredients : <input type="text" name="ingredients" value="${items[1]}"/></h6>
         <h6 id="mealKitDesc">description : <input type="text" name="description" value="${items[2]}"/></h6>
@@ -84,6 +85,35 @@ window.onload = function () {
         <button type="submit" form="mealKitForm" class="editMealKit">submit</button>
         <button type="button" class="editMealKit" onclick="window.location.reload()">cancel</button><br />
         `;
+
+        // I want to return form Data
+        let myForm = document.getElementById("mealKitForm");
+        myForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+
+          fetch("/dashboard/dataClerk/viewAllMeals", {
+            method: "post",
+            mode: "no-cors",
+            body: formData,
+          })
+            .then(function (response) {
+              response
+                .text()
+                .then((form) => console.log(form))
+                .catch((err) => console.log(err));
+
+              response.body.formData().then((text) => console.log(text));
+            })
+            .catch((err) => consolš.log(err));
+          // .then(function (response) {
+          //   return response.formData();
+          // })
+          // .then(function (formdata) {
+          //   console.log(formdata);
+          // })
+        });
       });
     }
   }
