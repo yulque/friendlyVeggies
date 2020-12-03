@@ -10,14 +10,14 @@ window.onload = function () {
   let logoutBtn = document.getElementById("logOut");
   if (logoutBtn) {
     logoutBtn.onclick = function () {
-      location.href = "/logOut";
+      location.href = "/logout";
     };
   }
   //home - go to signup
   let signUpBtn = document.getElementById("signUp");
   if (signUpBtn) {
     signUpBtn.onclick = function () {
-      location.href = "/signUp";
+      location.href = "/signup";
     };
   }
   //home - dash board
@@ -31,23 +31,32 @@ window.onload = function () {
   //home - go to onTheMenu
   let onTheMenuBtn = document.getElementById("onTheMenu-btn");
   onTheMenuBtn.onclick = function () {
-    location.href = "/onTheMenu";
+    location.href = "/onthemenu";
   };
   // create meal kit
   let createMealKit = document.getElementById("createMealKit");
   if (createMealKit) {
     createMealKit.onclick = function () {
-      location.href = "/dashboard/dataClerk/createMealKit";
+      location.href = "/dashboard/dataclerk/createmealkit";
     };
   }
   // view meal kit list
   let viewAllMeals = document.getElementById("viewMealKits");
   if (viewAllMeals) {
     viewAllMeals.onclick = function () {
-      location.href = "/dashboard/dataClerk/viewAllMeals";
+      location.href = "/dashboard/dataclerk/viewallmeals";
     };
   }
 
+  let onTheMenuSmall = document.getElementsByClassName("onTheMenuSmall");
+  if (onTheMenuSmall) {
+    for (let i = 0; i < onTheMenuSmall.length; i++) {
+      onTheMenuSmall[i].addEventListener("click", (e) => {
+        e.preventDefault();
+        location.href = "/onthemenu/description";
+      });
+    }
+  }
   // edit meal kits
   let mealKitSmall = document.getElementsByClassName("mealKitSmall");
   if (mealKitSmall) {
@@ -86,33 +95,26 @@ window.onload = function () {
         <button type="button" class="editMealKit" onclick="window.location.reload()">cancel</button><br />
         `;
 
-        // I want to return form Data
-        let myForm = document.getElementById("mealKitForm");
-        myForm.addEventListener("submit", function (e) {
-          e.preventDefault();
+        // // I want to return form Data
+        // let myForm = document.getElementById("mealKitForm");
+        // myForm.addEventListener("submit", function (e) {
+        //   e.preventDefault();
 
-          const formData = new FormData(this);
+        //   const formData = new FormData(this);
 
-          fetch("/dashboard/dataClerk/viewAllMeals", {
-            method: "post",
-            mode: "no-cors",
-            body: formData,
-          })
-            .then(function (response) {
-              response
-                .text()
-                .then((form) => console.log(form))
-                .catch((err) => console.log(err));
-            })
-            .catch((err) => consolš.log(err));
-          // .then(function (response) {
-          //   return response.formData();
-          // })
-          // .then(function (formdata) {
-          //   console.log(formdata);
-          // })
-        });
-      });
+        //   fetch("edit", {
+        //     method: "post",
+        //     mode: "no-cors",
+        //     body: formData,
+        //   })
+        //     .then(function (response) {
+        //       response
+        //         .text()
+        //         .then((form) => console.log(form))
+        //         .catch((err) => console.log(err));
+        //     })
+        //     .catch((err) => consolš.log(err));
+      }); //event listener ends here
     }
   }
 };
