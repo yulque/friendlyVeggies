@@ -49,11 +49,14 @@ window.onload = function () {
   }
 
   let onTheMenuSmall = document.getElementsByClassName("onTheMenuSmall");
+  let onTheMenuDesc = document.getElementsByClassName("onTheMenuDesc");
   if (onTheMenuSmall) {
     for (let i = 0; i < onTheMenuSmall.length; i++) {
       onTheMenuSmall[i].addEventListener("click", (e) => {
         e.preventDefault();
-        location.href = "/onthemenu/description";
+        let children = onTheMenuDesc[i].childNodes;
+        const url = children[1].textContent;
+        location.href = `/onthemenu?id=${url}`;
       });
     }
   }
@@ -94,27 +97,24 @@ window.onload = function () {
         <button type="submit" form="mealKitForm" class="editMealKit">submit</button>
         <button type="button" class="editMealKit" onclick="window.location.reload()">cancel</button><br />
         `;
-
-        // // I want to return form Data
-        // let myForm = document.getElementById("mealKitForm");
-        // myForm.addEventListener("submit", function (e) {
-        //   e.preventDefault();
-
-        //   const formData = new FormData(this);
-
-        //   fetch("edit", {
-        //     method: "post",
-        //     mode: "no-cors",
-        //     body: formData,
-        //   })
-        //     .then(function (response) {
-        //       response
-        //         .text()
-        //         .then((form) => console.log(form))
-        //         .catch((err) => console.log(err));
-        //     })
-        //     .catch((err) => consolš.log(err));
       }); //event listener ends here
     }
+  }
+  let btnAddToCart = document.getElementById("btnAddToCart");
+  const modal = document.querySelector(".modal");
+  const overlay = modal.querySelector(".md_overlay");
+  const closeButton = modal.querySelector("button");
+  const openModal = () => {
+    modal.classList.remove("hidden");
+  };
+  const closeModal = () => {
+    modal.classList.add("hidden");
+  };
+  if (btnAddToCart) {
+    btnAddToCart.addEventListener("click", (e) => {
+      openModal();
+      setTimeout(closeModal, 3000);
+    });
+    closeButton.addEventListener("click", closeModal);
   }
 };

@@ -30,6 +30,38 @@ textarea {
 .display-none {
   display: none;
 }
+/* modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.md_overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.md_content {
+  width: 20%;
+  position: relative;
+  padding: 50px 100px;
+  background-color: white;
+  text-align: center;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+}
+.hidden {
+  display: none;
+}
+.modal_text {
+  padding: 16px;
+}
 /*grid */
 .item1 {
   grid-row: 1/2;
@@ -91,7 +123,7 @@ textarea {
 
 /*- navigation bar -*/
 .navi-bar {
-  width: 500px;
+  width: 630px;
   height: 40px;
   right: 5%;
   margin: auto;
@@ -110,8 +142,7 @@ textarea {
   background-color: #478559;
   color: white;
 }
-.btnMealKit,
-.btnViewAllMeals {
+.btnBasic {
   padding: 1px 10px;
   width: 200px;
   height: 40px;
@@ -129,6 +160,13 @@ textarea {
   width: 10rem;
   border: solid 1px #f95d9b;
   background-color: #f95d9b;
+  color: white;
+}
+#cart-btn {
+  width: 2.5rem;
+  border: solid 1px #f95d9b;
+  background-color: #f95d9b;
+  padding: 0;
   color: white;
 }
 .btn:hover {
@@ -177,7 +215,7 @@ textarea {
 .topMealDesc p {
   font-size: 14px;
 }
-.topMealDesc button {
+.btn-price {
   line-height: 16px;
   padding: 0.1rem 0.2rem 0 0.2rem;
   border: solid 1px #478559;
@@ -372,6 +410,9 @@ select {
 .mealKitSmall select {
   font-size: 15px;
   width: 6rem;
+}
+.cartBtnDiv {
+  text-align: center;
 }
 /* footer */
 .footer {
