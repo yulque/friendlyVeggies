@@ -112,6 +112,8 @@ window.onload = function () {
   };
   if (btnAddToCart) {
     btnAddToCart.addEventListener("click", (e) => {
+      console.log("location.href is : ", location.href);
+      location.href = `${location.href}&addtocart=true`;
       openModal();
       setTimeout(closeModal, 3000);
     });
