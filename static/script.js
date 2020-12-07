@@ -55,12 +55,24 @@ window.onload = function () {
   }
 
   let onTheMenuSmall = document.getElementsByClassName("onTheMenuSmall");
-  let onTheMenuDesc = document.getElementsByClassName("onTheMenuDesc");
-  if (onTheMenuSmall) {
-    for (let i = 0; i < onTheMenuSmall.length; i++) {
-      onTheMenuSmall[i].addEventListener("click", (e) => {
+  for (let i = 0; i < onTheMenuSmall.length; i++) {
+    onTheMenuSmall[i].addEventListener("click", (e) => {
+      e.preventDefault();
+      const onTheMenuDesc = document.getElementsByClassName("onTheMenuDesc");
+      let children = onTheMenuDesc[i].childNodes;
+      const url = children[1].textContent;
+      location.href = `/onthemenu?id=${url}`;
+    });
+  }
+
+  let topMealSmall = document.getElementsByClassName("topMealSmall");
+  if (topMealSmall) {
+    for (let i = 0; i < topMealSmall.length; i++) {
+      topMealSmall[i].addEventListener("click", (e) => {
         e.preventDefault();
-        let children = onTheMenuDesc[i].childNodes;
+        const topMealDesc = document.getElementsByClassName("topMealDesc");
+        let children = topMealDesc[i].childNodes;
+        console.log(children);
         const url = children[1].textContent;
         location.href = `/onthemenu?id=${url}`;
       });

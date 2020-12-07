@@ -7,13 +7,12 @@ const session = require("express-session");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(express.static("static"));
 app.use("/", express.static(__dirname + "/static"));
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
 
 app.set("views", __dirname + "/views");
-app.engine("hbs", exphbs({ extname: "hbs" }));
+app.engine("hbs", exphbs({ extname: "hbs", partialsDir: ["views/partial/"] }));
 app.set("view engine", "hbs");
 
 // set up express-session

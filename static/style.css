@@ -76,11 +76,11 @@ textarea {
   position: fixed;
   top: 0;
 }
-.itemHero {
+/* .itemHero {
   grid-row: 2/3;
-}
+} */
 .item3 {
-  grid-row: 3/4;
+  grid-row: 2/4;
 }
 .item4 {
   grid-row: 4/5;
@@ -182,6 +182,7 @@ textarea {
 .hero {
   width: 100%;
   text-align: center;
+  margin: 1rem;
 }
 .hero img {
   max-width: 800px;
