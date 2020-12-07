@@ -7,8 +7,8 @@ const session = require("express-session");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static("static"));
-
+//app.use(express.static("static"));
+app.use("/", express.static(__dirname + "/static"));
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
 

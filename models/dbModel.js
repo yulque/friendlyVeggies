@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+require("mongoose-currency").loadType(mongoose);
+const Currency = mongoose.Types.Currency;
 // connect to the mongoDB
 let db, users, mealKits;
 mongoose
@@ -46,6 +48,12 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
+function getPrice(num) {
+  return (num / 100).toFixed(2);
+}
+function setPrice(num) {
+  return num * 100;
+}
 // meal schema
 const mealKitSchema = new Schema({
   title: {
@@ -55,7 +63,7 @@ const mealKitSchema = new Schema({
   ingredients: String,
   description: String,
   category: String,
-  price: String,
+  price: { type: Number },
   cookingTime: Number,
   servings: Number,
   calories: Number,
@@ -63,7 +71,23 @@ const mealKitSchema = new Schema({
   imageUpload: String,
 });
 
+const cartItemSchema = new Schema({
+  menuId: String,
+  title: String,
+  price: { type: Number },
+  imageUpload: String,
+  quantity: Number,
+  itemTotalPrice: Number,
+});
+const cartSchema = new Schema({
+  user: { type: userSchema, unique: true },
+  items: [{ type: cartItemSchema, ref: "cartItem" }],
+  totalPrice: { type: Number },
+});
+
 module.exports = {
   userModel: mongoose.model("users", userSchema),
   mealKitModel: mongoose.model("mealKit", mealKitSchema),
+  cartModel: mongoose.model("cart", cartSchema),
+  cartItemModel: mongoose.model("cartItem", cartItemSchema),
 };

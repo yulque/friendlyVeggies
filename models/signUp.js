@@ -3,18 +3,19 @@ dotenv.config({ path: "./config/keys.env" });
 const db = require("./dbModel.js");
 
 module.exports = {
-  validateSignUp: function (req, res) {
-    const { firstName, lastName, email } = req.body;
-    let password = req.body.password;
-    let result = {};
+  validateSignUp: function (body, callbackf) {
+    const { firstName, lastName, email, password } = body;
+    let result = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    };
     let validFN,
       validLN,
       validE,
       validP = false;
-    result.firstName = firstName;
-    result.lastName = lastName;
-    result.email = email;
-    result.password = password;
+
     //check first name
     if (!firstName) {
       result.msgFN = "Enter your first name";
@@ -67,11 +68,13 @@ module.exports = {
           console.log(`error happens saving user. ${err}`);
           if (err.code == 11000) {
             result.msgId = "This email already exists";
-            res.render("general/signUp", result);
+            callbackf(result);
           }
         } else {
           console.log("successfully saved to web322db!");
-          res.redirect("/welcome");
+          result.password = "";
+          result.validation = true;
+          callbackf(result);
           //send mail to welcome user
           const sgMail = require("@sendgrid/mail");
           sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
@@ -86,10 +89,9 @@ module.exports = {
           // Asyncronously sends the email
           sgMail.send(msg).catch((err) => {
             console.log(`Error : ${err}`);
-            res.render("general/signUp");
           });
         }
       });
-    } else res.render("general/signUp", result);
+    } else callbackf(result);
   },
 };

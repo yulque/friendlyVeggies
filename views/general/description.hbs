@@ -1,0 +1,28 @@
+<div class="menuDescription" id="menuDescription">
+    <p id="userInfo" class="display-none">{{user._id}}</p>
+    <div class="title">
+        <h4>{{data.title}}</h4>
+    </div>
+    <div id="container-menu" class="container-menu">
+        <img src="/uploads/{{data.imageUpload}}" alt="meal" />
+        <div class="onTheMenuDesc">
+            <p class="display-none" value="{{data._id}}">{{data._id}}</p>
+            <h6>{{data.ingredients}}</h6>
+            <button class="btn-price">${{data.price}}</button>
+            <hr>
+            <p id="onTheMenuCat">Servings : {{data.servings}} people</p>
+            <p id="onTheMenuCat">Cooking Time : {{data.cookingTime}} minutes</p>
+            <p id="onTheMenuCat">Calories : {{data.calories}} /serving</p><br />
+            <p>{{data.description}}</p></br>
+            <div class="cartBtnDiv"><button type="button" id="btnAddToCart" class="btnBasic">Add to cart</button></div>
+            <br />
+            <div class="modal hidden">
+                <div class="md_overlay"></div>
+                <div class="md_content">
+                    <h1>Added to cart</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

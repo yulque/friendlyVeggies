@@ -1,12 +1,12 @@
 // connect to the mongoDB
 const db = require("./dbModel");
 const bcrypt = require("bcrypt");
-const session = require("express-session");
+
 module.exports = {
-  validate_user: function (req, res) {
-    const { userId, userPassword } = req.body;
-    let result = { isUnlogged: true };
+  validate_user: function (body, callbackf) {
+    const { userId, userPassword } = body;
     let validation = false;
+    let result = {};
     //check id
     if (userId == "") {
       result.msgId = "Enter your id";
@@ -19,42 +19,30 @@ module.exports = {
     //check password
     if (userPassword == "") {
       result.msgPwd = "Enter your password";
-      result.userPassword = userPassword;
       validation = false;
     } else {
-      result.userPassword = userPassword;
       if (validation) validation = true;
     }
     //validation check
     if (validation) {
-      // tell mongoose to register this schema as a model and connect it to
-      // names collection (if not there, it will automatically create)
       db.userModel
-        .findOne({ email: req.body.userId })
+        .findOne({ email: body.userId })
         .then((found) => {
-          if (found.email == null) {
+          if (!found) {
             result.msgId = "This id is not registered";
+            callbackf(result);
           } else {
             bcrypt
               .compare(userPassword, found.password)
               .then((isMatched) => {
                 if (isMatched) {
                   console.log("password is matched");
-                  //create a new session
-                  req.session.user = found;
-                  result.isClerk = found.isClerk;
-                  if (found.isClerk) {
-                    //res.render("general/dashboard/dataClerk", result);
-                    res.redirect("/dashboard");
-                  } else {
-                    //res.render("general/dashboard/user", result);
-                    res.redirect("/dashboard");
-                  }
+                  result.found = found;
                 } else {
                   console.log("password is not matched");
                   result.msgPwd = "The password is incorrect";
-                  res.status(200).render("general/login", result);
                 }
+                callbackf(result);
               })
               .catch((err) => {
                 console.log(`error comparing password ${err}`);
@@ -62,10 +50,8 @@ module.exports = {
           }
         })
         .catch((err) => {
-          console.log(`error finding this user`);
-          result.msgId = "This Id is not registered";
-          res.status(200).render("general/login", result);
+          console.log(`error finding this user`, err);
         });
-    } else res.status(200).render("general/login", result);
+    } else callbackf(result);
   },
 };

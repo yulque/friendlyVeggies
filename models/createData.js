@@ -2,7 +2,7 @@
 const db = require("./dbModel.js");
 
 module.exports = {
-  uploadMealKit: function (req, res) {
+  createMealKit: function (body, file, callbackf) {
     const {
       title,
       ingredients,
@@ -14,7 +14,7 @@ module.exports = {
       calories,
       isTopMeal,
       imageUpload,
-    } = req.body;
+    } = body;
     const newMealKit = new db.mealKitModel({
       title: title,
       ingredients: ingredients,
@@ -37,19 +37,19 @@ module.exports = {
             {
               _id: mealSaved._id,
             },
-            { imageUpload: req.file.filename }
+            { imageUpload: file.filename }
           )
           .then()
           .catch((err) => console.log(err));
         console.log(`meal kit is successfully saved `);
         result.saved = true;
-        res.status(201).render("general/dashboard/createMealKit", result);
+        callbackf(result);
       })
       .catch((err) => {
         console.log(`error happened while saving meal kit ${err}`);
         if (err.code == 11000) {
           result.errTitle = `this title already exists`;
-          res.render("general/dashboard/createMealKit", result);
+          callbackf(result);
         }
       });
   },

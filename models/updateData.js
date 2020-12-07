@@ -2,20 +2,20 @@
 const db = require("./dbModel.js");
 
 module.exports = {
-  updateData: function (req, res) {
+  updateData: function (body, callbackf) {
     db.mealKitModel
       .updateOne(
-        { _id: req.body.id },
+        { _id: body.id },
         {
-          title: req.body.title,
-          ingredients: req.body.ingredients,
-          description: req.body.description,
-          category: req.body.category,
-          price: req.body.price,
-          cookingTime: req.body.cookingTime,
-          servings: req.body.servings,
-          calories: req.body.calories,
-          isTopMeal: req.body.isTopMeal ? true : false,
+          title: body.title,
+          ingredients: body.ingredients,
+          description: body.description,
+          category: body.category,
+          price: body.price,
+          cookingTime: body.cookingTime,
+          servings: body.servings,
+          calories: body.calories,
+          isTopMeal: body.isTopMeal ? true : false,
         }
       )
       .then(() => {
@@ -25,12 +25,12 @@ module.exports = {
               food: docs.map((item) => item.toJSON()),
               isSaved: true,
             };
-            res.render("general/dashboard/viewAllMeals", items);
+            callbackf(items);
+            //res.render("general/dashboard/viewallmeals", items);
           })
           .catch((err) =>
             console.log("while finding data, error happened ", err)
           );
-        //console.log(saved);
       })
       .catch((err) =>
         console.log("while updating meal kits error happened ", err)
