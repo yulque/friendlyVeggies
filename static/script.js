@@ -25,7 +25,13 @@ window.onload = function () {
   if (dashboardBtn) {
     dashboardBtn.onclick = function () {
       location.href = "/dashboard";
-      console.log(request);
+    };
+  }
+  // home - go to cart
+  let cartBtn = document.getElementById("cart-btn");
+  if (cartBtn) {
+    cartBtn.onclick = function () {
+      location.href = "/cart";
     };
   }
   //home - go to onTheMenu
@@ -85,7 +91,7 @@ window.onload = function () {
         <option value="vegan meals">vegan meals</option>
         <option value="snacks">snacks</option>
         </select></h6>
-        <h6 id="mealKitPrice">price : <input type="number" name="price" value="${items[4]}"/></h6>
+        <h6 id="mealKitPrice">price : <input type="number" step="0.01" min="0" name="price" value="${items[4]}"/></h6>
         <h6 id="mealKitCookingTime">cooking time : <input type="number" name="cookingTime" value="${items[5]}"/></h6>
         <h6 id="mealKitServings">servings : <input type="number" name="servings" value="${items[6]}"/></h6>
         <h6 id="mealKitCal">calories : <input type="number" name="calories" value="${items[7]}"/></h6>
@@ -101,22 +107,30 @@ window.onload = function () {
     }
   }
   let btnAddToCart = document.getElementById("btnAddToCart");
-  const modal = document.querySelector(".modal");
-  const overlay = modal.querySelector(".md_overlay");
-  const closeButton = modal.querySelector("button");
-  const openModal = () => {
-    modal.classList.remove("hidden");
-  };
-  const closeModal = () => {
-    modal.classList.add("hidden");
-  };
   if (btnAddToCart) {
+    const modal = document.querySelector(".modal");
+    const overlay = modal.querySelector(".md_overlay");
+    const closeButton = modal.querySelector("button");
+    const openModal = () => {
+      modal.classList.remove("hidden");
+    };
+    const closeModal = () => {
+      modal.classList.add("hidden");
+    };
     btnAddToCart.addEventListener("click", (e) => {
-      console.log("location.href is : ", location.href);
+      if (document.getElementById("userInfo").textContent) {
+        openModal();
+        setTimeout(closeModal, 3000);
+      }
       location.href = `${location.href}&addtocart=true`;
-      openModal();
-      setTimeout(closeModal, 3000);
     });
     closeButton.addEventListener("click", closeModal);
+  }
+  let btnPlaceOrder = document.getElementById("btnPlaceOrder");
+  if (btnPlaceOrder) {
+    btnPlaceOrder.addEventListener("click", (e) => {
+      console.log("button is clicked");
+      location.href = `${location.href}?placeorder=true`;
+    });
   }
 };
