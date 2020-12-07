@@ -110,7 +110,7 @@ window.onload = function () {
   if (btnAddToCart) {
     const modal = document.querySelector(".modal");
     const overlay = modal.querySelector(".md_overlay");
-    const closeButton = modal.querySelector("button");
+    //const closeButton = modal.querySelector("button");
     const openModal = () => {
       modal.classList.remove("hidden");
     };
@@ -124,7 +124,7 @@ window.onload = function () {
       }
       location.href = `${location.href}&addtocart=true`;
     });
-    closeButton.addEventListener("click", closeModal);
+    //closeButton.addEventListener("click", closeModal);
   }
   let btnPlaceOrder = document.getElementById("btnPlaceOrder");
   if (btnPlaceOrder) {
