@@ -149,26 +149,13 @@ router.get("/onthemenu", (req, res) => {
 router.get("/cart", (req, res) => {
   if (req.query.placeorder) {
     // when deleting request is coming in
+    // send mail to user first
+    model_cart.sendOrderMail(req.session.user);
+    // clear the cart
     model_cart.deleteCart(req.session.user, (result) => {
       if (result.deletedCount === 1) {
         // when successfully deleted it
         res.render("general/orderPlaced");
-
-        // send mail to user
-        const sgMail = require("@sendgrid/mail");
-        sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
-
-        const orderMsg = {
-          to: req.session.user.email,
-          from: "yryoon@myseneca.ca",
-          subject: `order is placed`,
-          html: `Your order is placed. <br>
-            It's on the way!`,
-        };
-        // Asyncronously sends the email
-        sgMail.send(orderMsg).catch((err) => {
-          console.log(`Error while sending order mail : ${err}`);
-        });
       } else {
         res.status(404).end();
       }

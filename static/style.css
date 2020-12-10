@@ -76,9 +76,7 @@ textarea {
   position: fixed;
   top: 0;
 }
-/* .itemHero {
-  grid-row: 2/3;
-} */
+
 .item3 {
   grid-row: 2/4;
 }
@@ -120,7 +118,6 @@ textarea {
   display: block;
   font-family: "Kufam", cursive;
   font-size: 20px;
-  /*width: 40%;*/
   color: #f95d9b;
 }
 .store-name a {
@@ -405,7 +402,6 @@ select {
   text-align: center;
   color: #f95d9b;
 }
-
 .mealKitSmall {
   border: solid 1px black;
   text-align: left;
@@ -467,8 +463,8 @@ select {
   text-decoration: underline;
 }
 
-/* --------------------------------------------------*/
-/* mobile resize ------------------------------------*/
+/* --------------------------------------------------------------------------------------------------------*/
+/* mobile resize ------------------------------------------------------------------------------------------*/
 
 @media (max-width: 768px) {
   body {

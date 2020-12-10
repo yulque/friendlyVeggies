@@ -110,4 +110,65 @@ module.exports = {
       })
       .catch((err) => console.log("while deleting cart : ", err));
   },
+  sendOrderMail: function (user) {
+    console.log("user - send order : ", user);
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+
+    db.cartModel
+      .findOne({ "user.email": user.email })
+      .then((cart) => {
+        console.log("cart : ", cart);
+        let text = `<tr> <th>Item</th> <th>Quantity</th> <th>Price</th> </tr>`;
+        for (let i = 0; i < cart.items.length; i++) {
+          console.log("cart item", cart.items[0], cart.items[i]);
+          text =
+            text +
+            `<tr> <td>${cart.items[i].title}</td>  <td>${cart.items[i].quantity}</td> <td> $${cart.items[i].itemTotalPrice}</td></tr>`;
+        }
+        text =
+          text +
+          `<tr class="sum">
+        <td class="sum" colspan="3"> <strong>total Price : $${cart.totalPrice}  </strong></td> </tr>`;
+        console.log("text is : ", text);
+        const orderMsg = {
+          to: user.email,
+          from: "yryoon@myseneca.ca",
+          subject: `Your Friendly Veggies order confirmation`,
+          html: `<html><head><style>
+          body {
+            font-family: "Rubik", sans-serif;}
+          table, th, td {
+            border: 1px solid  #478559;
+            border-collapse: collapse;
+            text-align : center;
+          }
+          table {width:90%;}
+          h3 {
+          color: #478559}
+          .sum {
+          text-align: right;
+          border-top: 3px solid #478559;}
+          </style></head>
+          <body>
+          <br>
+          Your order is placed. It's on the way! <br>
+          <h3>Ordered Items </h3>
+          <table>
+            ${text}
+          </table>
+          <br><br>
+          Thank you.
+          </body>
+          </html>
+          `,
+        };
+        sgMail.send(orderMsg).catch((err) => {
+          console.log(`Error while sending order mail : ${err}`);
+        });
+      })
+      .catch((err) => {
+        console.log(`Error while finding user for order mail : ${err}`);
+      });
+  },
 };
