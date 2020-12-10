@@ -126,12 +126,16 @@ module.exports = {
         for (let i = 0; i < cart.items.length; i++) {
           text =
             text +
-            `<tr> <td>${cart.items[i].title}</td>  <td>${cart.items[i].quantity}</td> <td> $${cart.items[i].itemTotalPrice}</td></tr>`;
+            `<tr> <td>${cart.items[i].title}</td>  <td>${
+              cart.items[i].quantity
+            }</td> <td> $${cart.items[i].itemTotalPrice.toFixed(2)}</td></tr>`;
         }
         text =
           text +
           `<tr class="sum">
-        <td class="sum" colspan="3"> <strong>total Price : $${cart.totalPrice}  </strong></td> </tr>`;
+        <td class="sum" colspan="3"> <strong>total Price : $${cart.totalPrice.toFixed(
+          2
+        )}  </strong></td> </tr>`;
 
         // message for mail
         const orderMsg = {
