@@ -29,13 +29,13 @@ module.exports = {
               const newCart = new db.cartModel({
                 user: user,
                 items: [newCartItem],
-                totalPrice: newCartItem.itemTotalPrice,
+                totalPrice: newCartItem.itemTotalPrice.toFixed(2),
               });
               newCart
                 .save()
                 .then((saved) => console.log("created a new cart : ", saved))
                 .catch((err) =>
-                  console.log("error while creating new cart - ", err)
+                  console.log("error while creating new cart ", err)
                 );
             } else {
               // if the user's cart exists, and the item is already there
@@ -46,7 +46,9 @@ module.exports = {
                     {
                       $inc: {
                         "items.$[element].quantity": 1,
-                        "items.$[element].itemTotalPrice": newCartItem.price,
+                        "items.$[element].itemTotalPrice": newCartItem.price.toFixed(
+                          2
+                        ),
                         totalPrice: newCartItem.price.toFixed(2),
                       },
                     },
@@ -56,10 +58,7 @@ module.exports = {
                     db.cartModel
                       .findOne({ "user.email": user.email })
                       .then((result) =>
-                        console.log(
-                          "item was there so quantity was increased",
-                          result
-                        )
+                        console.log("item quantity was increased", result)
                       )
                       .catch((err) => console.log(err))
                   )
@@ -71,16 +70,15 @@ module.exports = {
                     { "user.email": user.email },
                     {
                       $addToSet: { items: newCartItem },
-                      $inc: { totalPrice: newCartItem.price },
+                      $inc: { totalPrice: newCartItem.price.toFixed(2) },
                     }
                   )
                   .then((result) =>
-                    console.log(
-                      "new item is added. modified ; ",
-                      result.nModified
-                    )
+                    console.log("new item is added to cart", result)
                   )
-                  .catch((err) => console.log(err));
+                  .catch((err) =>
+                    console.log("error while updating cart", err)
+                  );
               }
             }
           })
@@ -93,15 +91,20 @@ module.exports = {
   loadCart: function (user, callbackf) {
     db.cartModel.findOne({ "user.email": user.email }).then((cart) => {
       if (!cart) {
-        //when the cart is empty
+        // when the cart is empty
         callbackf(cart);
       } else {
-        //cart is not empty
+        // when cart is not empty
+        cart.items.forEach((item) => {
+          item.itemTotalPrice = item.itemTotalPrice.toFixed(2);
+        });
+        cart.totalPrice = cart.totalPrice.toFixed(2);
         const result = cart.toJSON();
         callbackf(result);
       }
     });
   },
+
   deleteCart: function (someone, callbackf) {
     db.cartModel
       .deleteOne({ "user.email": someone.email })
@@ -110,18 +113,17 @@ module.exports = {
       })
       .catch((err) => console.log("while deleting cart : ", err));
   },
+
   sendOrderMail: function (user) {
-    console.log("user - send order : ", user);
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
     db.cartModel
       .findOne({ "user.email": user.email })
       .then((cart) => {
-        console.log("cart : ", cart);
+        // cart item information for message text
         let text = `<tr> <th>Item</th> <th>Quantity</th> <th>Price</th> </tr>`;
         for (let i = 0; i < cart.items.length; i++) {
-          console.log("cart item", cart.items[0], cart.items[i]);
           text =
             text +
             `<tr> <td>${cart.items[i].title}</td>  <td>${cart.items[i].quantity}</td> <td> $${cart.items[i].itemTotalPrice}</td></tr>`;
@@ -130,7 +132,8 @@ module.exports = {
           text +
           `<tr class="sum">
         <td class="sum" colspan="3"> <strong>total Price : $${cart.totalPrice}  </strong></td> </tr>`;
-        console.log("text is : ", text);
+
+        // message for mail
         const orderMsg = {
           to: user.email,
           from: "yryoon@myseneca.ca",
@@ -143,7 +146,7 @@ module.exports = {
             border-collapse: collapse;
             text-align : center;
           }
-          table {width:90%;}
+          table {width:80%;}
           h3 {
           color: #478559}
           .sum {
@@ -163,12 +166,16 @@ module.exports = {
           </html>
           `,
         };
-        sgMail.send(orderMsg).catch((err) => {
-          console.log(`Error while sending order mail : ${err}`);
-        });
+
+        // send a mail
+        sgMail
+          .send(orderMsg)
+          .catch((err) =>
+            console.log(`Error while sending order mail : ${err}`)
+          );
       })
-      .catch((err) => {
-        console.log(`Error while finding user for order mail : ${err}`);
-      });
+      .catch((err) =>
+        console.log(`Error while finding user for order mail : ${err}`)
+      );
   },
 };

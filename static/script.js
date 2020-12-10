@@ -1,3 +1,14 @@
+function makeAJAXRequest(method, url, data) {
+  if (data) {
+  } else {
+    //make an AJAX call without data
+    fetch(url, { method: method })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+      });
+  }
+}
 window.onload = function () {
   //home - go to login
   let loginBtn = document.getElementById("logIn");
@@ -136,12 +147,10 @@ window.onload = function () {
       }
       location.href = `${location.href}&addtocart=true`;
     });
-    //closeButton.addEventListener("click", closeModal);
   }
   let btnPlaceOrder = document.getElementById("btnPlaceOrder");
   if (btnPlaceOrder) {
     btnPlaceOrder.addEventListener("click", (e) => {
-      console.log("button is clicked");
       location.href = `${location.href}?placeorder=true`;
     });
   }

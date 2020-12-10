@@ -10,7 +10,7 @@ const model_updateData = require("../models/updateData.js");
 const model_findData = require("../models/findData.js");
 const model_cart = require("../models/cart.js");
 const multer = require("multer");
-const { model } = require("mongoose");
+
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -118,6 +118,7 @@ router.get("/onthemenu", (req, res) => {
     // when the request ask description
     if (Object.keys(req.query).length !== 0) {
       if (req.query.addtocart) {
+        // when item is added to cart
         if (req.session.user) {
           // when user is logged in
           model_cart.addToCart(req.query.id, req.session.user);
@@ -127,20 +128,21 @@ router.get("/onthemenu", (req, res) => {
           res.redirect("/login");
         }
       } else if (req.query.id) {
+        // when description page is requested
         model_findData.findData(req.query.id, (data) => {
           let result = data.toJSON();
           let user;
           if (req.session.user) {
             user = req.session.user;
           }
-          res.render("general/description", {
+          res.render("general/menu/description", {
             data: result,
             user: user,
           });
         });
       }
     } else {
-      res.render("general/onTheMenu", data);
+      res.render("general/menu/onTheMenu", data);
     }
   });
 });
@@ -155,7 +157,7 @@ router.get("/cart", (req, res) => {
     model_cart.deleteCart(req.session.user, (result) => {
       if (result.deletedCount === 1) {
         // when successfully deleted it
-        res.render("general/orderPlaced");
+        res.render("general/cart/orderPlaced");
       } else {
         res.status(404).end();
       }
@@ -164,9 +166,13 @@ router.get("/cart", (req, res) => {
     // normal get request
     model_cart.loadCart(req.session.user, (cart) => {
       if (!cart) {
-        res.render("general/cart", { user: req.session.user });
-      } else res.render("general/cart", cart);
+        res.render("general/cart/cart", { user: req.session.user });
+      } else res.render("general/cart/cart", cart);
     });
   }
+});
+
+router.get("/api/meals", (req, res) => {
+  model_loadingData.loadAllData((data) => res.json(data));
 });
 module.exports = router;

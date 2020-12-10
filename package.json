@@ -27,6 +27,7 @@
     "express-fileupload": "^1.2.0",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
+    "handlebars-helpers": "^0.10.0",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.12",
     "mongoose-currency": "^0.2.0",

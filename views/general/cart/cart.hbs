@@ -10,14 +10,15 @@
             <h6 id="mealKitId" class="display-none" value="{{menuId}}"></h6>
             <h6 id="mealKitquantity">quantity : {{quantity}}</h6>
             <hr>
-            <h6 id="mealKitItemTotalPrice">item total price : {{itemTotalPrice}}</h6>
+            <h6 id="mealKitItemTotalPrice">item total price : ${{itemTotalPrice}}</h6>
         </div>
     </div>
     {{/each}}
     <div class="cartTotalPrice">
         <h6 id="cartTotalPrice"> total price : ${{totalPrice}}</h6>
+        <button class="btnBasic" id="btnPlaceOrder">Place order >></button>
     </div>
-    <button class="btnBasic" id="btnPlaceOrder">Place order >></button>
+
     {{else}}
     <div class="subTitle"> uh oh, your cart is empty now </i></div>
     <div class="subTitle upSideDown">

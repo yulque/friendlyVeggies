@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 require("mongoose-currency").loadType(mongoose);
-const Currency = mongoose.Types.Currency;
 // connect to the mongoDB
-let db, users, mealKits;
 mongoose
   .connect(process.env.MONGODB_KEY, {
     useNewUrlParser: true,
@@ -14,7 +12,6 @@ mongoose
     console.log("MongoDB is connected");
   })
   .catch((err) => console.log("MongoDB failed to connect ", err));
-// find collections
 
 //define our models - Name schema
 const Schema = mongoose.Schema;
@@ -48,12 +45,6 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
-function getPrice(num) {
-  return (num / 100).toFixed(2);
-}
-function setPrice(num) {
-  return num * 100;
-}
 // meal schema
 const mealKitSchema = new Schema({
   title: {

@@ -424,6 +424,7 @@ select {
 }
 .cartSmall {
   width: 97%;
+  max-width: 40rem;
   margin: 1rem auto;
   border: solid 1px #478559;
   display: flex;
@@ -439,7 +440,12 @@ select {
   height: 170px;
 }
 .cartTotalPrice {
-  padding: 0 2rem 1rem 0;
+  width: 97%;
+  max-width: 40rem;
+  margin: auto;
+}
+#cartTotalPrice {
+  margin: 1rem;
 }
 /* footer */
 .footer {
@@ -511,6 +517,7 @@ select {
   /* <!-- hero banner --> */
   .itemHero {
     width: 100%;
+    margin-bottom: 1rem;
   }
   .hero {
     width: 300px;
@@ -568,7 +575,7 @@ select {
     height: 240px;
   }
   .cartSmall {
-    width: 97%;
+    width: 98%;
     margin: 1rem auto;
     display: block;
     text-align: center;

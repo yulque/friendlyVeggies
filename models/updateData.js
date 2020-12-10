@@ -26,7 +26,6 @@ module.exports = {
               isSaved: true,
             };
             callbackf(items);
-            //res.render("general/dashboard/viewallmeals", items);
           })
           .catch((err) =>
             console.log("while finding data, error happened ", err)
